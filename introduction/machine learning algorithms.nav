@@ -1,0 +1,84 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{Logistics}{3}{Logistics}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@sectionpages {3}{3}}
+\headcommand {\beamer@subsectionpages {3}{3}}
+\headcommand {\sectionentry {2}{What is Machine Learning}{4}{What is Machine Learning}{0}}
+\headcommand {\slideentry {2}{0}{1}{4/4}{}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\beamer@sectionpages {4}{4}}
+\headcommand {\beamer@subsectionpages {4}{4}}
+\headcommand {\sectionentry {3}{Types of Learning}{5}{Types of Learning}{0}}
+\headcommand {\slideentry {3}{0}{1}{5/5}{}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\beamer@subsectionpages {5}{5}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{6}{Supervised Learning}}
+\headcommand {\slideentry {3}{1}{1}{6/6}{Supervised Learning}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@subsectionpages {6}{6}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{7}{Unsupervised Learning}}
+\headcommand {\slideentry {3}{2}{1}{7/7}{Unsupervised Learning}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\beamer@subsectionpages {7}{7}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{8}{Semi-Supervised Learning}}
+\headcommand {\slideentry {3}{3}{1}{8/8}{Semi-Supervised Learning}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\beamer@subsectionentry {0}{3}{4}{9}{Reinforcement Learning}}
+\headcommand {\slideentry {3}{4}{1}{9/9}{Reinforcement Learning}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\beamer@sectionpages {5}{9}}
+\headcommand {\beamer@subsectionpages {9}{9}}
+\headcommand {\sectionentry {4}{How Supervised Learning Works?}{10}{How Supervised Learning Works?}{0}}
+\headcommand {\slideentry {4}{0}{1}{10/10}{}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\beamer@subsectionpages {10}{10}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{11}{Supervised Learning Example: Spam Detection}}
+\headcommand {\slideentry {4}{1}{1}{11/11}{Supervised Learning Example: Spam Detection}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\beamer@subsectionpages {11}{11}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{12}{Spam Detection: Learning Algorithm}}
+\headcommand {\slideentry {4}{2}{1}{12/12}{Spam Detection: Learning Algorithm}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {4}{2}{2}{13/13}{Spam Detection: Learning Algorithm}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {4}{2}{3}{14/14}{Spam Detection: Learning Algorithm}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\beamer@subsectionpages {12}{14}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{15}{Optimization Problem}}
+\headcommand {\slideentry {4}{3}{1}{15/15}{Optimization Problem}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {4}{3}{2}{16/16}{Optimization Problem}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\beamer@subsectionpages {15}{16}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{17}{SVM: 2D Example}}
+\headcommand {\slideentry {4}{4}{1}{17/17}{SVM: 2D Example}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {4}{4}{2}{18/18}{SVM: 2D Example}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@subsectionpages {17}{18}}
+\headcommand {\beamer@subsectionentry {0}{4}{5}{19}{Conclusion}}
+\headcommand {\slideentry {4}{5}{1}{19/19}{Conclusion}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {4}{5}{2}{20/20}{Conclusion}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\beamer@sectionpages {10}{20}}
+\headcommand {\beamer@subsectionpages {19}{20}}
+\headcommand {\sectionentry {5}{Why the Model Works on New Data?}{21}{Why the Model Works on New Data?}{0}}
+\headcommand {\slideentry {5}{0}{1}{21/21}{}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {5}{0}{2}{22/22}{}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {5}{0}{3}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\beamer@partpages {1}{23}}
+\headcommand {\beamer@subsectionpages {21}{23}}
+\headcommand {\beamer@sectionpages {21}{23}}
+\headcommand {\beamer@documentpages {23}}
+\headcommand {\gdef \inserttotalframenumber {23}}
