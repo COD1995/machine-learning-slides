@@ -45,3 +45,5 @@
 *.eps
 *.cls
 *.sty
+*.nav
+*.snm
