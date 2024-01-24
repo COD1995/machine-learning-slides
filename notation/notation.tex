@@ -31,28 +31,28 @@
 
 \begin{document}
 \begin{frame}
-    \titlepage
+	\titlepage
 \end{frame}
 
 \begin{frame}
-    \frametitle{Outline}
-    \tableofcontents
+	\frametitle{Outline}
+	\tableofcontents
 \end{frame}
 
 \section{Notation}
 \begin{frame}{Notation}
-    Let's breifly revisit the mathematical notation we all learned at school.
+	Let's breifly revisit the mathematical notation we all learned at school.
 \end{frame}
 
 \subsection{Data Structure}
 \begin{frame}{Data Structure}
-    A \textbf{scalar} is a simple numerical value, like 15 or -3.25 . Variables or constants that take scalar values are denoted by an italic letter, like $x$ or $a$.
-    
-    A \textbf{vector} is an ordered list of scalar values, called attributes. We denote a vector as a bold character, for example, $\mathbf{x}$ or $\mathbf{w}$. 
-    \begin{itemize}
-    	\item Vectors can be visualized as arrows that point to some directions as well as points in a multi-dimensional space. 
-    \end{itemize}
-    Illustrations of three two-dimensional vectors, $\mathbf{a}=[2,3], \mathbf{b}=[-2,5]$, and $\mathbf{c}=[1,0]$ are given in the figure. 
+	A \textbf{scalar} is a simple numerical value, like 15 or -3.25 . Variables or constants that take scalar values are denoted by an italic letter, like $x$ or $a$.
+
+	A \textbf{vector} is an ordered list of scalar values, called attributes. We denote a vector as a bold character, for example, $\mathbf{x}$ or $\mathbf{w}$.
+	\begin{itemize}
+		\item Vectors can be visualized as arrows that point to some directions as well as points in a multi-dimensional space.
+	\end{itemize}
+	Illustrations of three two-dimensional vectors, $\mathbf{a}=[2,3], \mathbf{b}=[-2,5]$, and $\mathbf{c}=[1,0]$ are given in the figure.
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\textwidth]{imgs/notation_1}
@@ -63,49 +63,49 @@
 
 \begin{frame}
 	We denote an attribute of a vector as an italic value with an index, like this: $w^{(j)}$ or $x^{(j)}$. The index $j$ denotes a specific \textbf{dimension} of the vector, the position of an attribute in the list. For instance, in the vector a shown in red in the figure, $a^{(1)}=2$ and $a^{(2)}=3$.
-		\begin{figure}
+	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\textwidth]{imgs/notation_1}
 		\caption{Three vectors visualized as directions and as points.}
 	\end{figure}
 	The notation $x^{(j)}$ should not be confused with the power operator, such as the 2 in $x^{2}$ (squared) or 3 in $x^{3}$ (cubed). If we want to apply a power operator, say square, to an indexed attribute of a vector, we write like this: $\left(x^{(j)}\right)^{2}$.
-	
+
 	A variable can have two or more indices, like this: $x_{i}^{(j)}$ or like this $x_{i, j}^{(k)}$. For example, in neural networks, we denote as $x_{l, u}^{(j)}$ the input feature $j$ of unit $u$ in layer $l$.
 \end{frame}
 
 \begin{frame}
 	A \textbf{matrix} is a rectangular array of numbers arranged in rows and columns. Below is an example of a matrix with two rows and three columns,
 	$$
-	\left[\begin{array}{ccc}
-		2 & 4 & -3 \\
-		21 & -6 & -1
-	\end{array}\right]
+		\left[\begin{array}{ccc}
+				2  & 4  & -3 \\
+				21 & -6 & -1
+			\end{array}\right]
 	$$
-	
+
 	Matrices are denoted with bold capital letters, such as \(\mathbf{A}\) or \(\mathbf{W}\).
-	
-	A \textbf{set} is an unordered collection of unique elements. 
+
+	A \textbf{set} is an unordered collection of unique elements.
 	\begin{itemize}
 		\item We denote a set as a calligraphic capital character, for example, $\mathcal{S}$.
 	\end{itemize}
-	 \textcolor{red}{A set of numbers can be finite (include a fixed amount of values).} 
-	 \begin{itemize}
-	 	\item  In this case, it is denoted using accolades, for example, $\{1,3,18,23,235\}$ or $\left\{x_{1}, x_{2}, x_{3}, x_{4}, \ldots, x_{n}\right\}$. 
-	 \end{itemize}
-	
-	 \textcolor{red}{A set can be infinite and include all values in some interval.}
-	 \begin{itemize}
-	 	\item If a set includes all values between $a$ and $b$, including $a$ and $b$, it is denoted using brackets as $[a, b]$. If the set doesn't include the values $a$ and $b$, such a set is denoted using parentheses like this: $(a, b)$. 
-	 \end{itemize}
+	\textcolor{red}{A set of numbers can be finite (include a fixed amount of values).}
+	\begin{itemize}
+		\item  In this case, it is denoted using accolades, for example, $\{1,3,18,23,235\}$ or $\left\{x_{1}, x_{2}, x_{3}, x_{4}, \ldots, x_{n}\right\}$.
+	\end{itemize}
 
-	 \begin{itemize}
-	 	\item For example, the set $[0,1]$ includes such values as $0,0.0001,0.25,0.784,0.9995$, and 1.0. A special set denoted $\mathbb{R}$ includes all numbers from minus infinity to plus infinity.
-	 \end{itemize}
+	\textcolor{red}{A set can be infinite and include all values in some interval.}
+	\begin{itemize}
+		\item If a set includes all values between $a$ and $b$, including $a$ and $b$, it is denoted using brackets as $[a, b]$. If the set doesn't include the values $a$ and $b$, such a set is denoted using parentheses like this: $(a, b)$.
+	\end{itemize}
+
+	\begin{itemize}
+		\item For example, the set $[0,1]$ includes such values as $0,0.0001,0.25,0.784,0.9995$, and 1.0. A special set denoted $\mathbb{R}$ includes all numbers from minus infinity to plus infinity.
+	\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	When an element $x$ belongs to a set $\mathcal{S}$, we write $x \in \mathcal{S}$. 
+	When an element $x$ belongs to a set $\mathcal{S}$, we write $x \in \mathcal{S}$.
 	\begin{itemize}
 		\item 	We can obtain a new set $\mathcal{S}_{3}$ as an \textbf{intersection} of two sets $\mathcal{S}_{1}$ and $\mathcal{S}_{2}$. In this case, we write $\mathcal{S}_{3} \leftarrow \mathcal{S}_{1} \cap \mathcal{S}_{2}$. For example $\{1,3,5,8\} \cap\{1,8,4\}$ gives the new set $\{1,8\}$.
 		\item 	We can obtain a new set $\mathcal{S}_{3}$ as a \textbf{union} of two sets $\mathcal{S}_{1}$ and $\mathcal{S}_{2}$. In this case, we write $\mathcal{S}_{3} \leftarrow \mathcal{S}_{1} \cup \mathcal{S}_{2}$. For example $\{1,3,5,8\} \cup\{1,8,4\}$ gives the new set $\{1,3,4,5,8\}$.
@@ -116,8 +116,8 @@
 \begin{frame}{Capital Sigma Notation}
 	The summation over a collection $\mathcal{X}=\left\{x_{1}, x_{2}, \ldots, x_{n-1}, x_{n}\right\}$ or over the attributes of a vector $\mathbf{x}=\left[x^{(1)}, x^{(2)}, \ldots, x^{(m-1)}, x^{(m)}\right]$ is denoted like this:
 	\begin{equation*}
-			\begin{aligned}
-			& \sum_{i=1}^{n} x_{i} \stackrel{\text { def }}{=} x_{1}+x_{2}+\ldots+x_{n-1}+x_{n}, \\ & \text { or else: } \sum_{j=1}^{m} x^{(j)} \stackrel{\text { def }}{=} x^{(1)}+x^{(2)}+\ldots+x^{(m-1)}+x^{(m)}
+		\begin{aligned}
+			 & \sum_{i=1}^{n} x_{i} \stackrel{\text { def }}{=} x_{1}+x_{2}+\ldots+x_{n-1}+x_{n}, \\ & \text { or else: } \sum_{j=1}^{m} x^{(j)} \stackrel{\text { def }}{=} x^{(1)}+x^{(2)}+\ldots+x^{(m-1)}+x^{(m)}
 		\end{aligned}
 	\end{equation*}
 	The notation $\stackrel{\text { def }}{=}$ means "is defined as".
@@ -126,17 +126,17 @@
 \subsection{Capital Pi Notation}
 \begin{frame}{Capital Pi Notation}
 	A notation analogous to capital sigma is the capital pi notation. It denotes a product of elements in a collection or attributes of a vector:
-	
+
 	$$
-	\prod_{i=1}^{n} x_{i} \stackrel{\text { def }}{=} x_{1} \cdot x_{2} \cdot \ldots \cdot x_{n-1} \cdot x_{n}
+		\prod_{i=1}^{n} x_{i} \stackrel{\text { def }}{=} x_{1} \cdot x_{2} \cdot \ldots \cdot x_{n-1} \cdot x_{n}
 	$$
-	
+
 	where $a \cdot b$ means $a$ multiplied by $b$. Where possible, we omit $\cdot$ to simplify the notation, so $a b$ also means $a$ multiplied by $b$.
 \end{frame}
 
 \subsection{Operations on Sets}
 \begin{frame}{Operations on Sets}
-	A derived set creation operator looks like this: $\mathcal{S}^{\prime}\leftarrow\left\{x^{2} \mid x \in \mathcal{S}, x>3\right\}$. 
+	A derived set creation operator looks like this: $\mathcal{S}^{\prime}\leftarrow\left\{x^{2} \mid x \in \mathcal{S}, x>3\right\}$.
 	\begin{itemize}
 		\item This notation means that we create a new set $\mathcal{S}^{\prime}$ by putting into it $x$ squared such that $x$ is in $\mathcal{S}$, and $x$ is greater than 3.
 	\end{itemize}
@@ -146,74 +146,74 @@
 \subsection{Operations on Vectors}
 \begin{frame}{Operations on Vectors}
 	\begin{itemize}
-		\item The sum of two vectors $\mathbf{x}+\mathbf{z}$ is defined as the vector $\left[x^{(1)}+z^{(1)}, x^{(2)}+z^{(2)}, \ldots, x^{(m)}+z^{(m)}\right]$. 
+		\item The sum of two vectors $\mathbf{x}+\mathbf{z}$ is defined as the vector $\left[x^{(1)}+z^{(1)}, x^{(2)}+z^{(2)}, \ldots, x^{(m)}+z^{(m)}\right]$.
 		\item The difference of two vectors $\mathbf{x}-\mathbf{z}$ is defined as $\left[x^{(1)}-z^{(1)}, x^{(2)}-z^{(2)}, \ldots, x^{(m)}-z^{(m)}\right]$.
 		\item A vector multiplied by a scalar is a vector. For example $\mathbf{x} c \stackrel{\text { def }}{=}\left[c x^{(1)}, c x^{(2)}, \ldots, c x^{(m)}\right]$.
-		\item A dot-product of two vectors is a scalar. 
-		\begin{itemize}
-			\item For example, $\mathbf{w} \mathbf{x} \stackrel{\text { def }}{=} \sum_{i=1}^{m} w^{(i)} x^{(i)}$. The dot-product is denoted as $\mathbf{w} \cdot \mathbf{x}$. The two vectors must be of the same dimensionality. Otherwise, the dot-product is undefined.
-		\end{itemize}
+		\item A dot-product of two vectors is a scalar.
+		      \begin{itemize}
+			      \item For example, $\mathbf{w} \mathbf{x} \stackrel{\text { def }}{=} \sum_{i=1}^{m} w^{(i)} x^{(i)}$. The dot-product is denoted as $\mathbf{w} \cdot \mathbf{x}$. The two vectors must be of the same dimensionality. Otherwise, the dot-product is undefined.
+		      \end{itemize}
 		\item The multiplication of a matrix $\mathbf{W}$ by a vector $\mathbf{x}$ results in another vector. Let our matrix be,
-		$$
-		\mathbf{W}=\left[\begin{array}{lll}
-			w^{(1,1)} & w^{(1,2)} & w^{(1,3)} \\
-			w^{(2,1)} & w^{(2,2)} & w^{(2,3)}
-		\end{array}\right]
-		$$
+		      $$
+			      \mathbf{W}=\left[\begin{array}{lll}
+					      w^{(1,1)} & w^{(1,2)} & w^{(1,3)} \\
+					      w^{(2,1)} & w^{(2,2)} & w^{(2,3)}
+				      \end{array}\right]
+		      $$
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	When vectors participate in operations on matrices, a vector is by default represented as a matrix with one column. When the vector is on the right of the matrix, it remains a column vector. We can only multiply a matrix by vector if the vector has the same number of rows as the number of columns in the matrix. Let our vector be $\mathbf{x} \stackrel{\text { def }}{=}\left[x^{(1)}, x^{(2)}, x^{(3)}\right]$. Then $\mathbf{W} \mathbf{x}$ is a two-dimensional vector defined as,
-	
+
 	$$
-	\begin{aligned}
-		\mathbf{W} \mathbf{x} & =\left[\begin{array}{lll}
-			w^{(1,1)} & w^{(1,2)} & w^{(1,3)} \\
-			w^{(2,1)} & w^{(2,2)} & w^{(2,3)}
-		\end{array}\right]\left[\begin{array}{l}
-			x^{(1)} \\
-			x^{(2)} \\
-			x^{(3)}
-		\end{array}\right] \\
-		& \stackrel{\text { def }}{=}\left[\begin{array}{l}
-			w^{(1,1)} x^{(1)}+w^{(1,2)} x^{(2)}+w^{(1,3)} x^{(3)} \\
-			w^{(2,1)} x^{(1)}+w^{(2,2)} x^{(2)}+w^{(2,3)} x^{(3)}
-		\end{array}\right] \\
-		& =\left[\begin{array}{l}
-			\mathbf{w}^{(1)} \mathbf{x} \\
-			\mathbf{w}^{(2)} \mathbf{x}
-		\end{array}\right]
-	\end{aligned}
+		\begin{aligned}
+			\mathbf{W} \mathbf{x} & =\left[\begin{array}{lll}
+					                               w^{(1,1)} & w^{(1,2)} & w^{(1,3)} \\
+					                               w^{(2,1)} & w^{(2,2)} & w^{(2,3)}
+				                               \end{array}\right]\left[\begin{array}{l}
+					                                                       x^{(1)} \\
+					                                                       x^{(2)} \\
+					                                                       x^{(3)}
+				                                                       \end{array}\right]                                      \\
+			                      & \stackrel{\text { def }}{=}\left[\begin{array}{l}
+					                                                         w^{(1,1)} x^{(1)}+w^{(1,2)} x^{(2)}+w^{(1,3)} x^{(3)} \\
+					                                                         w^{(2,1)} x^{(1)}+w^{(2,2)} x^{(2)}+w^{(2,3)} x^{(3)}
+				                                                         \end{array}\right] \\
+			                      & =\left[\begin{array}{l}
+					                               \mathbf{w}^{(1)} \mathbf{x} \\
+					                               \mathbf{w}^{(2)} \mathbf{x}
+				                               \end{array}\right]
+		\end{aligned}
 	$$
-	
+
 	If our matrix had, say, five rows, the result of the product would be a five-dimensional vector.
 \end{frame}
 
 \begin{frame}
-	 When the vector is on the left side of the matrix in the multiplication, then it has to be \textbf{transposed} before we multiply it by the matrix. The transpose of the vector $\mathbf{x}$ denoted as $\mathbf{x}^{\top}$ makes a row vector out of a column vector. Let's say,
-	
+	When the vector is on the left side of the matrix in the multiplication, then it has to be \textbf{transposed} before we multiply it by the matrix. The transpose of the vector $\mathbf{x}$ denoted as $\mathbf{x}^{\top}$ makes a row vector out of a column vector. Let's say,
+
 	$$
-	\mathbf{x}=\left[\begin{array}{l}
-		x^{(1)} \\
-		x^{(2)}
-	\end{array}\right], \text { then } \mathbf{x}^{\top} \stackrel{\text { def }}{=}\left[\begin{array}{ll}
-		x^{(1)} & x^{(2)}
-	\end{array}\right]
-	$$
-	
-	The multiplication of the vector $\mathbf{x}$ by the matrix $\mathbf{W}$ is given by $\mathbf{x}^{\top} \mathbf{W}$,
-	
-	\begin{equation*}
-			\begin{aligned}
-			\mathbf{x}^{\top} \mathbf{W} & =\left[\begin{array}{ll}
+		\mathbf{x}=\left[\begin{array}{l}
+				x^{(1)} \\
+				x^{(2)}
+			\end{array}\right], \text { then } \mathbf{x}^{\top} \stackrel{\text { def }}{=}\left[\begin{array}{ll}
 				x^{(1)} & x^{(2)}
-			\end{array}\right]\left[\begin{array}{lll}
-				w^{(1,1)} & w^{(1,2)} & w^{(1,3)} \\
-				w^{(2,1)} & w^{(2,2)} & w^{(2,3)}
-			\end{array}\right] \\
-			& \stackrel{\text { def }}{=}[w^{(1,1)} x^{(1)}+w^{(2,1)} x^{(2)}, w^{(1,2)} x^{(1)}+w^{(2,2)} x^{(2)}, w^{(1,3)} x^{(1)} \\
-			& +w^{(2,3)} x^{(2)}]
+			\end{array}\right]
+	$$
+
+	The multiplication of the vector $\mathbf{x}$ by the matrix $\mathbf{W}$ is given by $\mathbf{x}^{\top} \mathbf{W}$,
+
+	\begin{equation*}
+		\begin{aligned}
+			\mathbf{x}^{\top} \mathbf{W} & =\left[\begin{array}{ll}
+					                                      x^{(1)} & x^{(2)}
+				                                      \end{array}\right]\left[\begin{array}{lll}
+					                                                              w^{(1,1)} & w^{(1,2)} & w^{(1,3)} \\
+					                                                              w^{(2,1)} & w^{(2,2)} & w^{(2,3)}
+				                                                              \end{array}\right]                                                        \\
+			                             & \stackrel{\text { def }}{=}[w^{(1,1)} x^{(1)}+w^{(2,1)} x^{(2)}, w^{(1,2)} x^{(1)}+w^{(2,2)} x^{(2)}, w^{(1,3)} x^{(1)} \\
+			                             & +w^{(2,3)} x^{(2)}]
 		\end{aligned}
 	\end{equation*}
 	As you can see, we can only multiply a vector by a matrix if the vector has the same number of dimensions as the number of rows in the matrix.
@@ -221,7 +221,7 @@
 
 \subsection{Functions}
 \begin{frame}{Functions}
-	A \textbf{function} is a relation that associates each element $x$ of a set $\mathcal{X}$, the \textbf{domain} of the function, to a single element $y$ of another set $\mathcal{Y}$, the \textbf{codomain} of the function. A function usually has a name. 
+	A \textbf{function} is a relation that associates each element $x$ of a set $\mathcal{X}$, the \textbf{domain} of the function, to a single element $y$ of another set $\mathcal{Y}$, the \textbf{codomain} of the function. A function usually has a name.
 	\begin{itemize}
 		\item 	If the function is called $f$, this relation is denoted $y=f(x)$ (read $f$ of $x$ ), the element $x$ is the argument or input of the function, and $y$ is the value of the function or the output. The symbol that is used for representing the input is the variable of the function (we often say that $f$ is a function of the variable $x$ ).
 	\end{itemize}
@@ -232,26 +232,26 @@
 	\begin{itemize}
 		\item An \textbf{interval} is a set of real numbers with the property that any number that lies between two numbers in the set is also included in the set. An open interval does not include its endpoints and is denoted using parentheses. For example, $(0,1)$ means "all numbers greater than 0 and less than 1 ".
 	\end{itemize}
- The minimal value among all the local minima is called the \textbf{global minimum}. 
- \begin{figure}
- 	\centering
- 	\includegraphics[width=0.5\textwidth]{imgs/notation_2}
- 	\caption{A local and a global minima of a function.}
- \end{figure}
- A \textcolor{red}{vector function}, denoted as $\mathrm{y}=\boldsymbol{f}(x)$ is a function that returns a vector $\mathrm{y}$. It can have a vector or a scalar argument.
+	The minimal value among all the local minima is called the \textbf{global minimum}.
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.5\textwidth]{imgs/notation_2}
+		\caption{A local and a global minima of a function.}
+	\end{figure}
+	A \textcolor{red}{vector function}, denoted as $\mathrm{y}=\boldsymbol{f}(x)$ is a function that returns a vector $\mathrm{y}$. It can have a vector or a scalar argument.
 \end{frame}
 
 \subsection{Max and ArgMax}
 
 \begin{frame}{Max and ArgMax}
-	Given a set of values $\mathcal{A}=\left\{a_{1}, a_{2}, \ldots, a_{n}\right\}$, 
-	
+	Given a set of values $\mathcal{A}=\left\{a_{1}, a_{2}, \ldots, a_{n}\right\}$,
+
 	\begin{itemize}
 		\item the operator $\max _{a \in \mathcal{A}} f(a)$ returns the highest value $f(a)$ for all elements in the set $\mathcal{A}$.
 		\item the operator $\arg \max _{a \in \mathcal{A}} f(a)$ returns the element of the set $\mathcal{A}$ that maximizes $f(a)$.
 	\end{itemize}
 	Sometimes, when the set is implicit or infinite, we can write $\max _{a} f(a)$ or $\arg \max _{a} f(a)$. Operators min and arg min operate in a similar manner.
-	
+
 	\begin{tcolorbox}[enhanced jigsaw, breakable, pad at break*=1mm, colback=gray!20!white, colframe=black!85!black, title=\textbf{Example}]
 		\begin{enumerate}
 			\item \textbf{Set of Values} $\mathcal{A}$:$ \{ Alice: 12000, Bob: 15000, Charlie: 18000, Diana: 10000 \}$
@@ -260,6 +260,18 @@
 			\item \textbf{Using Arg Max}: $\arg \max_{a \in \mathcal{A}} f(a)$: This will return the salesperson who achieved this highest sales figure, which is Charlie.
 		\end{enumerate}
 	\end{tcolorbox}
+\end{frame}
+
+\subsection{Assignment Operator}
+\begin{frame}{Assignment Operator}
+	The expression $a \leftarrow f(x)$ means that the variable $a$ gets the new value: the result of $f(x)$. We say that the variable $a$ gets assigned a new value.
+	\begin{itemize}
+		\item Similarly, $\mathbf{a} \leftarrow\left[a_{1}, a_{2}\right]$ means that the vector variable a gets the two-dimensional vector value $\left[a_{1}, a_{2}\right]$.
+	\end{itemize}
+\end{frame}
+
+\subsection{Derivative and Gradient}
+\begin{frame}{Derivative and Gradient}
 \end{frame}
 
 \end{document}
