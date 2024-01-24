@@ -1,0 +1,107 @@
+\documentclass[10pt,dvipsnames]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{libertinus}
+\usepackage{amsmath}
+\usepackage[most]{tcolorbox}
+
+\usepackage{graphicx}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,    % color of internal links
+    urlcolor=blue,     % color of external URLs
+    citecolor=blue     % color of citations
+}
+
+\usepackage{xcolor}  
+\newcommand{\cb}[1]{{\color{CadetBlue}#1}}
+
+
+\usetheme{Goettingen}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+
+
+\title{CSE574 Introduction to Machine Learning}
+\subtitle{Machine Learning: Notation and Definitions}
+\author{Jue Guo}
+\institute{University at Buffalo}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Notation}
+\begin{frame}{Notation}
+    Let's breifly revisit the mathematical notation we all learned at school.
+\end{frame}
+
+\subsection{Data Structure}
+\begin{frame}{Data Structure}
+    A \textbf{scalar} is a simple numerical value, like 15 or -3.25 . Variables or constants that take scalar values are denoted by an italic letter, like $x$ or $a$.
+    
+    A \textbf{vector} is an ordered list of scalar values, called attributes. We denote a vector as a bold character, for example, $\mathbf{x}$ or $\mathbf{w}$. 
+    \begin{itemize}
+    	\item Vectors can be visualized as arrows that point to some directions as well as points in a multi-dimensional space. 
+    \end{itemize}
+    Illustrations of three two-dimensional vectors, $\mathbf{a}=[2,3], \mathbf{b}=[-2,5]$, and $\mathbf{c}=[1,0]$ are given in the figure. 
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{imgs/notation_1}
+		\caption{Three vectors visualized as directions and as points.}
+		\label{fig:notation1}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	We denote an attribute of a vector as an italic value with an index, like this: $w^{(j)}$ or $x^{(j)}$. The index $j$ denotes a specific \textbf{dimension} of the vector, the position of an attribute in the list. For instance, in the vector a shown in red in the figure, $a^{(1)}=2$ and $a^{(2)}=3$.
+		\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{imgs/notation_1}
+		\caption{Three vectors visualized as directions and as points.}
+	\end{figure}
+	The notation $x^{(j)}$ should not be confused with the power operator, such as the 2 in $x^{2}$ (squared) or 3 in $x^{3}$ (cubed). If we want to apply a power operator, say square, to an indexed attribute of a vector, we write like this: $\left(x^{(j)}\right)^{2}$.
+	
+	A variable can have two or more indices, like this: $x_{i}^{(j)}$ or like this $x_{i, j}^{(k)}$. For example, in neural networks, we denote as $x_{l, u}^{(j)}$ the input feature $j$ of unit $u$ in layer $l$.
+\end{frame}
+
+\begin{frame}
+	A \textbf{matrix} is a rectangular array of numbers arranged in rows and columns. Below is an example of a matrix with two rows and three columns,
+	$$
+	\left[\begin{array}{ccc}
+		2 & 4 & -3 \\
+		21 & -6 & -1
+	\end{array}\right]
+	$$
+	
+	Matrices are denoted with bold capital letters, such as \(\mathbf{A}\) or \(\mathbf{W}\).
+	
+	A \textbf{set} is an unordered collection of unique elements. 
+	\begin{itemize}
+		\item We denote a set as a calligraphic capital character, for example, $\mathcal{S}$.
+	\end{itemize}
+	 \textcolor{red}{A set of numbers can be finite (include a fixed amount of values).} 
+	 \begin{itemize}
+	 	\item  In this case, it is denoted using accolades, for example, $\{1,3,18,23,235\}$ or $\left\{x_{1}, x_{2}, x_{3}, x_{4}, \ldots, x_{n}\right\}$. 
+	 \end{itemize}
+	
+	 \textcolor{red}{A set can be infinite and include all values in some interval.}
+	 \begin{itemize}
+	 	\item If a set includes all values between $a$ and $b$, including $a$ and $b$, it is denoted using brackets as $[a, b]$. If the set doesn't include the values $a$ and $b$, such a set is denoted using parentheses like this: $(a, b)$. 
+	 \end{itemize}
+
+	 \begin{itemize}
+	 	\item For example, the set $[0,1]$ includes such values as $0,0.0001,0.25,0.784,0.9995$, and 1.0. A special set denoted $\mathbb{R}$ includes all numbers from minus infinity to plus infinity.
+	 \end{itemize}
+
+\end{frame}
+
+\end{document}
