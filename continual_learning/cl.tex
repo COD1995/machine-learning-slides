@@ -75,7 +75,67 @@
         \caption{A conceptual framework of continual learning. \textbf{a}, Continual learning requires adapting to incremental tasks with dynamic data distributions. \textbf{b}, A desirable solution should ensure a proper balance between stability (red arrow) and plasticity (green arrow), as well as an adequate generalizability to intra-task (blue arrow) and inter-task (orange arrow) distribution differences. \textbf{c}, Representative strategies have targeted various aspects of machine learning.}
     \end{figure}
 \end{frame}
+\begin{frame}
+    Realistic applications present particular challenges for continual learning, which can be categorized into \textit{scenario complexity} and \textit{task specificity}.
+    \begin{itemize}
+        \item \textcolor{red}{As for the former}, for example, the task oracle (i.e., which task to perform) is probably missing in training and testing, and the training samples might be introduced in tiny batches or even one pass. Due to the expense and scarcity of data labeling, continual learning needs to be effective for few-shot, semi-supervised and even unsupervised scenarios.
+        \item \textcolor{red}{As for the latter}, although current advances mainly focus on visual classification, other vision domains such as object detection, semantic segmentation and image generation, as well as other related fields, such as reinforcement learning (RL), natural language processing (NLP) and ethic considerations, are receiving increasing attention with their own opportunities and challenges.
+    \end{itemize}
+\end{frame}
 
+\section{Setup}
+\begin{frame}{Setup}
+    \begin{itemize}
+        \item Basic formulation of continual learning
+        \item Typica scenarios
+        \item Evaluation metrics
+    \end{itemize}
+\end{frame}
 
+\subsection{Basic Formulation}
+\begin{frame}{Basic Formulation}
+    Continual learning is characterized as learning from dynamic data distributions. In practice, training samples of different distributions arrive in sequence. A continual learning model parameterized by $\theta$ needs to learn corresponding task(s) with no or limited access to old training samples and perform well on their test sets.
 
+    \begin{itemize}
+        \item Formally, an incoming batch of training samples belonging to a task $t$ can be represented as $\mathcal{D}_{t, b}=\left\{\mathcal{X}_{t, b}, \mathcal{Y}_{t, b}\right\}$, where $\mathcal{X}_{t, b}$ is the input data, $\mathcal{Y}_{t, b}$ is the data label, $t \in \mathcal{T}=\{1, \cdots, k\}$ is the task identity and $b \in \mathcal{B}_{t}$ is the batch index $\left(\mathcal{T}\right.$ and $\mathcal{B}_{t}$ denote their space, respectively).
+        \item Here we define a "task" by its training samples $\mathcal{D}_{t}$ following the distribution $\mathbb{D}_{t}:=p\left(\mathcal{X}_{t}, \mathcal{Y}_{t}\right)\left(\mathcal{D}_{t}\right.$ denotes the entire training set by omitting the batch index, likewise for $\mathcal{X}_{t}$ and $\mathcal{Y}_{t}$ ), and assume that there is no difference in distribution between training and testing. Under realistic constraints, the data label $\mathcal{Y}_{t}$ and the task identity $t$ might not be always available.
+    \end{itemize}
+    In continual learning, the training samples of each task can arrive incrementally in batches (i.e., $\left\{\left\{\mathcal{D}_{t, b}\right\}_{b \in \mathcal{B}_{t}}\right\}_{t \in \mathcal{T}}$ ) or simultaneously (i.e., $\left\{\mathcal{D}_{t}\right\}_{t \in \mathcal{T}}$ ).
+\end{frame}
+
+\subsection{Typical Scenario}
+\begin{frame}{Typical Scenario}
+    According to the division of incremental batches and the availability of task identities, we detail the typical continual learning scenarios as follows:
+    \begin{itemize}
+        \item \textit{Instance-Incremental Learning} (IIL): All training samples belong to the same task and arrive in batches.
+        \item \textit{Domain-Incremental Learning} (DIL): Tasks have the same data label space but different input distributions. Task identities are not required.
+        \item \textit{Task-Incremental Learning} (TIL): Tasks have disjoint data label spaces. Task identities are provided in both training and testing.
+        \item \textit{Class-Incremental Learning} (CIL): Tasks have disjoint data label spaces. Task identities are only provided in training.
+        \item \textit{Task-Free Continual Learning} (TFCL): Tasks have disjoint data label spaces. Task identities are not provided in either training or testing.
+        \item \textit{Online Continual Learning} (OCL): Tasks have disjoint data label spaces. Training samples for each task arrive as a one-pass data stream.
+        \item \textit{Blurred Boundary Continual Learning} (BBCL): Task boundaries are blurred, characterized by distinct but overlapping data label spaces.
+        \item \textit{Continual Pre-training} (CPT): Pre-training data arrives in sequence. The goal is to improve the performance of learning downstream tasks.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\linewidth]{imgs/cl_2.png}
+        \caption{A formal comparison of typical continual learning scenarios. $\mathcal{D}_{t, b}$ : the training samples of task $t$ and batch $b .|b|$ : the size of batch $b . \mathcal{B}_{t}$ : the space of incremental batches belonging to task $t \cdot \mathcal{D}_{t}$ : the training set of task $t$ (further specified as $\mathcal{D}_{t}^{p t}$ for pre-training). $\mathcal{T}$ : the space of all incremental tasks (further specified as $\mathcal{T}^{p t}$ for pre-training). $\mathcal{X}_{t}$ : the input data in $\mathcal{D}_{t} . p\left(\mathcal{X}_{t}\right)$ : the distribution of $\mathcal{X}_{t} . \mathcal{Y}_{t}$ : the data label of $\mathcal{X}_{t}$.}
+    \end{figure}
+\end{frame}
+\begin{frame}
+    If not specified, each task is generally assumed to have a sufficient number of labeled training samples, i.e., Supervised Continual Learning.
+    \begin{itemize}
+        \item According to the provided $\mathcal{X}_{t}$ and $\mathcal{Y}_{t}$ in each $\mathcal{D}_{t}$, continual learning can be further categorized into zero-shot, few-shot, semi-supervised, open-world (i.e., to identify unknown classes and then incorporate their labels)  and un-/self-supervised scenarios.
+    \end{itemize}
+    Besides, other practical challenges have been considered and incorporated,
+    \begin{itemize}
+        \item such as multiple labels , noisy labels, hierarchical granularity and sub-populations , mixture of task similarity , long-tailed distribution , domain alignment , domain shifting, anytime inference, novel class discovery, multi-modality, etc.
+    \end{itemize}
+    Some recent work has focused on various combinations of these scenarios, as a way of better simulating the complexity of the real world.
+\end{frame}
+
+\subsection{Evaluation Metric}
 \end{document}
