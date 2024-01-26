@@ -420,13 +420,46 @@ Most of the time we don't know $f_{X}$, but we can observe some values of $X$. I
 \begin{frame}{Unbiased Estimators}
 	Because $f_{X}$ is usually unknown, but we have a sample $S_{X}=\left\{x_{i}\right\}_{i=1}^{N}$, we often content ourselves not with the true values of statistics of the probability distribution, such as expectation, but with their \textbf{unbiased estimators}.
 	
-	We say that $\hat{\theta}\left(S_{X}\right)$ is an unbiased estimator of some statistic $\theta$ calculated using a sample $S_{X}$ drawn from an unknown probability distribution if $\hat{\theta}\left(S_{X}\right)$ has the following property:
+	We say that $\hat{\theta}\left(S_{X}\right)$ is an unbiased estimator of some statistic $\theta$ calculated using a sample $S_{X}$ drawn from an unknown probability distribution if $\hat{\theta}\left(S_{X}\right)$ has the following \textcolor{red}{property}:
 	
 	$$
 	\mathbb{E}\left[\hat{\theta}\left(S_{X}\right)\right]=\theta
 	$$
 	
-	where $\hat{\theta}$ is a sample statistic, obtained using a sample $S_{X}$ and not the real statistic $\theta$ that can be obtained only knowing $X$; the expectation is taken over all possible samples drawn from $X$. Intuitively, this means that if you can have an unlimited number of such samples as $S_{X}$, and you compute some unbiased estimator, such as $\hat{\mu}$, using each sample, then the average of all these $\hat{\mu}$ equals the real statistic $\mu$ that you would get computed on $X$.
+	where $\hat{\theta}$ is a \textbf{sample statistic}, obtained using a sample $S_{X}$ and not the real statistic $\theta$ that can be obtained only knowing $X$; the expectation is taken over all possible samples drawn from $X$. 
+	
+	\begin{itemize}
+		\item 	Intuitively, this means that if you can have an unlimited number of such samples as $S_{X}$, and you compute some unbiased estimator, such as $\hat{\mu}$, using each sample, then the average of all these $\hat{\mu}$ equals the real statistic $\mu$ that you would get computed on $X$.
+	\end{itemize}
+
 \end{frame}
 
+\begin{frame}
+	It can be shown that an unbiased estimator of an unknown $\mathbb{E}[X]$, 
+	$$
+	\begin{aligned}
+		\mathbb{E}[X] & \stackrel{\text { def }}{=} \sum_{i=1}^{k}\left[x_{i} \cdot \operatorname{Pr}\left(X=x_{i}\right)\right] \\
+		& =x_{1} \cdot \operatorname{Pr}\left(X=x_{1}\right)+x_{2} \cdot \operatorname{Pr}\left(X=x_{2}\right)+\cdots+x_{k} \cdot \operatorname{Pr}\left(X=x_{k}\right)
+	\end{aligned}
+	$$
+	
+	or, 
+	$$
+	\mathbb{E}[X] \stackrel{\text { def }}{=} \int_{\mathbb{R}} x f_{X}(x) d x
+	$$
+	is given by $\frac{1}{N} \sum_{i=1}^{N} x_{i}$ (called in statistics the\textbf{ sample mean}).
+	\begin{itemize}
+		\item 	In \textcolor{red}{summary}, the statement means that regardless of whether \(X\) is a discrete or continuous random variable, the sample mean
+		\(\frac{1}{N} \sum_{i=1}^{N} x_{i}\) serves as an unbiased estimator for its expected value \(\mathbb{E}[X]\). 
+	\end{itemize}
+In other words, if you repeatedly take samples from the distribution of \(X\) and calculate their means, the average of these sample means will converge to the true mean of \(X\).
+\end{frame}
+
+\section{Bayes' Rule}
+\begin{frame}{Bayes' Rule}
+	The conditional probability $\operatorname{Pr}(X=x \mid Y=y)$ is the probability of the random variable $X$ to have a specific value $x$ given that another random variable $Y$ has a specific value of $y$. The \textbf{Bayes' Rule} (also known as the \textbf{Bayes' Theorem}) stipulates that:
+	$$
+	\operatorname{Pr}(X=x \mid Y=y)=\frac{\operatorname{Pr}(Y=y \mid X=x) \operatorname{Pr}(X=x)}{\operatorname{Pr}(Y=y)}
+	$$
+\end{frame}
 \end{document}
