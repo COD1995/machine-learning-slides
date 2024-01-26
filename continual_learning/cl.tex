@@ -138,5 +138,63 @@
 \end{frame}
 
 \subsection{Evaluation Metric}
+\begin{frame}{Evaluation Metric}
+    In general, the performance of continual learning can be evaluated from three aspects: overall performance of the tasks learned so far, memory stability of old tasks, and learning plasticity of new tasks.
+    \begin{itemize}
+        \item Here we summarize the common evaluation metrics, using classification as an example. \textbf{Overall performance, Memory stability}, and \textbf{Learning plasticity}.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}
+    \textbf{Overall performance} is typically evaluated by \textit{average accuracy} (AA) and \textit{average incremental accuracy} (AIA).
+    \begin{itemize}
+        \item Let $a_{k, j} \in[0,1]$ denote the classification accuracy evaluated on the test set of the $j$-th task after incremental learning of the $k$-th task $(j \leq k)$. The output space to compute $a_{k, j}$ consists of the classes in either $\mathcal{Y}_{j}$ or $\cup_{i=1}^{k} \mathcal{Y}_{i}$, corresponding to the use of multi-head evaluation (e.g., TIL) or single-head evaluation (e.g., CIL).
+    \end{itemize}
+    The two metrics at the $k$-th task are then defined as
+    $$
+        \mathrm{AA}_{k}=\frac{1}{k} \sum_{j=1}^{k} a_{k, j}
+    $$
+    $$
+        \mathrm{AIA}_{k}=\frac{1}{k} \sum_{i=1}^{k} \mathrm{AA}_{i}
+    $$
+    where AA represents the overall performance at the current moment and AIA further reflects the historical variation.
+\end{frame}
+
+\begin{frame}
+    \textbf{Memory stability} can be evaluated by \textit{forgetting measure} (FM) and \textit{backward transfer} (BWT). As for the former, the forgetting of a task is calculated by the difference between its maximum performance obtained in the past and its current performance:
+
+    $$
+        f_{j, k}=\max _{i \in\{1, \ldots, k-1\}}\left(a_{i, j}-a_{k, j}\right), \forall j<k .
+    $$
+
+    FM at the $k$-th task is the average forgetting of all old tasks:
+
+    $$
+        \mathrm{FM}_{k}=\frac{1}{k-1} \sum_{j=1}^{k-1} f_{j, k}
+    $$
+
+    As for the latter, BWT evaluates the average influence of learning the $k$-th task on all old tasks:
+
+    $$
+        \mathrm{BWT}_{k}=\frac{1}{k-1} \sum_{j=1}^{k-1}\left(a_{k, j}-a_{j, j}\right)
+    $$
+
+    where the forgetting is usually reflected as a negative BWT.
+\end{frame}
+
+\begin{frame}
+    \textbf{Learning plasticity} can be evaluated by \textit{intransience measure} (IM) and \textit{forward transfer} (FWT). IM is defined as the inability of a model to learn new tasks, calculated by the difference of a task between its joint training performance and continual learning performance:
+
+    $$
+        \mathrm{IM}_{k}=a_{k}^{*}-a_{k, k}
+    $$
+
+    where $a_{k}^{*}$ is the classification accuracy of a randomlyinitialized reference model jointly trained with $\cup_{j=1}^{k} \mathcal{D}_{j}$ for the $k$-th task. In comparison, FWT evaluates the average influence of all old tasks on the current $k$-th task:
+
+    $$
+        \mathrm{FWT}_{k}=\frac{1}{k-1} \sum_{j=2}^{k}\left(a_{j, j}-\tilde{a}_{j}\right)
+    $$
+
+    where $\tilde{a}_{j}$ is the classification accuracy of a randomlyinitialized reference model trained with $\mathcal{D}_{j}$ for the $j$-th task. Note that, $a_{k, j}$ can be adapted to other forms depending on the task type, such as average precision (AP) for object detection, Intersection-over-Union (IoU) for semantic segmentation, Fréchet Inception Distance (FID) for image generation, normalized reward for reinforcement learning, etc, and the above evaluation metrics should be adjusted accordingly.
+\end{frame}
 \end{document}
