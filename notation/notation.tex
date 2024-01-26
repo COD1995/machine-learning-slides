@@ -406,4 +406,27 @@
 
 	where $\mu=\mathbb{E}[X]$.
 \end{frame}
+
+\begin{frame}
+Integral is an equivalent of the summation over all values of the function when the function has a continuous domain.
+\begin{itemize}
+	\item  It equals the area under the curve of the function.
+	\item  The property of the pdf that the area under its curve is 1 mathematically means that $\int_{\mathbb{R}} f_{X}(x) d x=1$.
+\end{itemize}
+Most of the time we don't know $f_{X}$, but we can observe some values of $X$. In machine learning, we call these values examples, and the collection of these examples is called a sample or a dataset.
+\end{frame}
+
+\section{Unbiased Estimators}
+\begin{frame}{Unbiased Estimators}
+	Because $f_{X}$ is usually unknown, but we have a sample $S_{X}=\left\{x_{i}\right\}_{i=1}^{N}$, we often content ourselves not with the true values of statistics of the probability distribution, such as expectation, but with their \textbf{unbiased estimators}.
+	
+	We say that $\hat{\theta}\left(S_{X}\right)$ is an unbiased estimator of some statistic $\theta$ calculated using a sample $S_{X}$ drawn from an unknown probability distribution if $\hat{\theta}\left(S_{X}\right)$ has the following property:
+	
+	$$
+	\mathbb{E}\left[\hat{\theta}\left(S_{X}\right)\right]=\theta
+	$$
+	
+	where $\hat{\theta}$ is a sample statistic, obtained using a sample $S_{X}$ and not the real statistic $\theta$ that can be obtained only knowing $X$; the expectation is taken over all possible samples drawn from $X$. Intuitively, this means that if you can have an unlimited number of such samples as $S_{X}$, and you compute some unbiased estimator, such as $\hat{\mu}$, using each sample, then the average of all these $\hat{\mu}$ equals the real statistic $\mu$ that you would get computed on $X$.
+\end{frame}
+
 \end{document}
