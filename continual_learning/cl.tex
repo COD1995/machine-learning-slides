@@ -1,4 +1,4 @@
-\documentclass[10pt,dvipsnames]{beamer}
+\documentclass[9pt,dvipsnames]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage{libertinus}
 \usepackage{amsmath}
@@ -52,8 +52,30 @@
     Unlike conventional machine learning models built on the premise of capturing a static data distribution, continual learning is characterized by learning from dynamic data distributions. A major challenge is known as \textbf{catastrophic forgetting}, where adaptation to a new distribution generally results in a largely reduced ability to capture old ones.
     \begin{itemize}
         \item This dilemma is a facet of the trade-off between \textbf{learning plasticity} and \textbf{memory stability}: an excess of the former interferes with the latter, and vice versa. A desirable solution for continual learning should obtain strong \textbf{generalizability} to accommodate distribution differences within and between tasks.
-        \item A naive baseline, retraining all old training samples makes it easy to address the above challenges, but creates huge computational and storage overheads.
+        \item A naive baseline, retraining all old training samples makes it easy to address the above challenges, but creates huge computational and storage overheads (as well as potential privacy issues).
     \end{itemize}
     In fact, continual learning is primarily intended to ensure the \textbf{resource efficiency} of model updates, perferably close to learning only new samples.
 \end{frame}
+
+\begin{frame}
+    Numerous efforts have been devoted to addressing the above challenges, which can be conceptually seperated into five groups:
+    \begin{enumerate}
+        \item regularization-based approach
+        \item replay-based approach
+        \item optimization-based approach
+        \item representation-based approach
+        \item architecture-based approach
+    \end{enumerate}
+    These methods are \textit{closely connected}, e.g., regularization and replay ultimately act to rectify the gradient directions in optimization, and \textit{highly synergistic}, e.g., the efficacy of replay can be facilitated by distilling knowledge from the old model.
+\end{frame}
+\begin{frame}
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.5\linewidth]{imgs/cl_1.png}
+        \caption{A conceptual framework of continual learning. \textbf{a}, Continual learning requires adapting to incremental tasks with dynamic data distributions. \textbf{b}, A desirable solution should ensure a proper balance between stability (red arrow) and plasticity (green arrow), as well as an adequate generalizability to intra-task (blue arrow) and inter-task (orange arrow) distribution differences. \textbf{c}, Representative strategies have targeted various aspects of machine learning.}
+    \end{figure}
+\end{frame}
+
+
+
 \end{document}
