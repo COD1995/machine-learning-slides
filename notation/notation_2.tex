@@ -1,0 +1,86 @@
+\documentclass[9pt,dvipsnames]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{libertinus}
+\usepackage{amsmath}
+\usepackage[most]{tcolorbox}
+
+\usepackage{graphicx}
+
+\usepackage{hyperref}
+
+\usepackage{xcolor}  
+\newcommand{\cb}[1]{{\color{CadetBlue}#1}}
+
+
+\usetheme{Berkeley}
+\setbeamertemplate{navigation symbols}{}
+
+
+\title{CSE574 Introduction to Machine Learning}
+\subtitle{Machine Learning: Notation and Definition Part 2}
+\author{Jue Guo}
+\institute{University at Buffalo}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Parameters vs. Hyperparameters}
+\begin{frame}{Parameters vs. Hyperparameters}
+    \begin{itemize}
+        \item A \textbf{hyperparameter} is a property of a learning algorithm, usually (but not always) having a numerical value. That value influences the way the algorithm works. Hyperparameters aren't learned by the algorithm itself from data. They have to be set by the data analyst before running the algorithm.
+        \item \textbf{Parameters} are variables that define the model learned by the learning algorithm. Parameters are directly modified by the learning algorithm based on the training data. The goal of learning is to find such values of parameters that make the model optimal in a certain sense.
+    \end{itemize}
+\end{frame}
+
+\section{Classification vs. Regression}
+\begin{frame}{Classification vs. Regression}
+    \textbf{Classification} is a problem of automatically assigning a \textbf{label} to an \textbf{unlabeled example}. Spam detection is a famous example of classification.
+    \begin{itemize}
+        \item In machine learning, the classification problem is solved by a \textbf{classification learning algorithm} that takes a collection of \textbf{labeled examples} as inputs and produces a \textbf{model} that can take an unlabeled example as input and either directly output a label or output a number that can be used by the analyst to deduce the label. An example of such a number is a probability.
+        \item In a classification problem, a label is a member of a finite set of \textbf{classes}. If the size of the set of classes is two ("sick"/"healthy", "spam"/"not spam"), we talk about \textbf{binary classification} (also called \textbf{binomial} in some sources). \textbf{Multiclass classification} (also called \textbf{multinomial}) is a classification problem with three or more classes.
+        \item While some learning algorithms naturally allow for more than two classes, others are by nature binary classification algorithms. There are strategies allowing to turn a binary classification learning algorithm into a multiclass one. \textcolor{red}{More on this later.}
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \textbf{Regression} is a problem of predicting a real-valued label (often called a \textbf{target}) given an unlabeled example.
+    \begin{itemize}
+        \item Estimating house price valuation based on house features, such as area, the number of bedrooms, location and so on is a famous example of regression.
+        \item The regression problem is solved by a \textbf{regression learning algorithm} that takes a collection of labeled examples as inputs and produces a model that can take an unlabeled example as input and output a target.
+    \end{itemize}
+\end{frame}
+
+\section{Model-Based vs Instance-Based Learning}
+\begin{frame}{Model-based vs Instance-Based Learning}
+    Most supervised learning algorithms are model-based. We have already seen one such algorithm: SVM.
+    \begin{itemize}
+        \item \textbf{Model-based learning algorithms} use the training data to create a model that has \textbf{parameters} learned from the training data.
+        \item In SVM, the two parameters we saw were $\mathbf{w}^{*}$ and $b^{*}$. After the model was built, the training data can be discarded.
+    \end{itemize}
+    \textbf{Instance-based learning algorithms} use the whole dataset as the model. One instance-based algorithm frequently used in practice is \textbf{k-Nearest Neighbors} (kNN).
+    \begin{itemize}
+        \item In classification, to predict a label for an input example the $\mathrm{kNN}$ algorithm looks at the close neighborhood of the input example in the space of feature vectors and outputs the label that it saw the most often in this close neighborhood.
+    \end{itemize}
+\end{frame}
+
+\section{Shallow vs. Deep Learning}
+\begin{frame}{Shallow vs. Deep Learning}
+    A \textbf{shallow learning} algorithm learns the parameters of the model directly from the features of the training examples. Most supervised learning algorithms are shallow. The notorious exceptions are \textbf{neural network} learning algorithms, specifically those that build neural networks with more than one \textbf{layer} between input and output.
+    \begin{itemize}
+        \item Such neural networks are called \textbf{deep neural networks}. In \textbf{deep neural network} learning (or, simply, deep learning), contrary to shallow learning, most model parameters are learned not directly from the features of the training examples, but from the outputs of the preceding layers.
+    \end{itemize}
+    \textcolor{red}{Don't worry if you don't understand what that means right now.} We look at neural networks more closely in later section.
+\end{frame}
+\begin{frame}
+    \begin{center}
+        \Huge Questions?
+    \end{center}
+\end{frame}
+\end{document}
