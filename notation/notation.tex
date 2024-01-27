@@ -235,7 +235,7 @@
 	The minimal value among all the local minima is called the \textbf{global minimum}.
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.5\textwidth]{imgs/notation_2}
+		\includegraphics[width=0.4\textwidth]{imgs/notation_2}
 		\caption{A local and a global minima of a function.}
 	\end{figure}
 	A \textcolor{red}{vector function}, denoted as $\mathrm{y}=\boldsymbol{f}(x)$ is a function that returns a vector $\mathrm{y}$. It can have a vector or a scalar argument.
@@ -461,5 +461,64 @@ In other words, if you repeatedly take samples from the distribution of \(X\) an
 	$$
 	\operatorname{Pr}(X=x \mid Y=y)=\frac{\operatorname{Pr}(Y=y \mid X=x) \operatorname{Pr}(X=x)}{\operatorname{Pr}(Y=y)}
 	$$
+\end{frame}
+
+\section{Parameter Estimation}
+\begin{frame}{Parameter Estimation}
+	Bayes' Rule comes in handy when we have a model of $X$ 's distribution, and this model $f_{\theta}$ is a function that has some parameters in the form of a vector $\theta$. 
+	\begin{itemize}
+		\item An example of such a function could be the Gaussian function that has two parameters, $\mu$ and $\sigma$, and is defined as:
+		$$
+		f_{\boldsymbol{\theta}}(x)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{(x-\mu)^{2}}{2 \sigma^{2}}}
+		$$
+		where $\boldsymbol{\theta} \stackrel{\text { def }}{=}[\mu, \sigma]$ and $\pi$ is the constant $(3.14159 \ldots)$.
+	\end{itemize}
+
+	This function has all the properties of a $\mathrm{pdf}^{1}$. In fact, the function defines the pdf of one of the most frequently used in practice probability distributions called \textbf{Gaussian distribution} or \textbf{normal distribution} and denoted as $\mathcal{N}\left(\mu, \sigma^{2}\right)$.
+\end{frame}
+
+\begin{frame}
+	Therefore, we can use it as a model of an unknown distribution of $X$. We can update the values of parameters in the vector $\theta$ from the data using the Bayes' Rule:
+\begin{equation*}
+	\begin{aligned}
+		\operatorname{Pr}(\theta=\hat{\theta} \mid X=x) &\leftarrow \frac{\operatorname{Pr}(X=x \mid \theta=\hat{\theta}) \operatorname{Pr}(\theta=\hat{\theta})}{\operatorname{Pr}(X=x)} \\
+		&= \frac{\operatorname{Pr}(X=x \mid \theta=\hat{\theta}) \operatorname{Pr}(\theta=\hat{\theta})}{\sum_{\tilde{\theta}} \operatorname{Pr}(X=x \mid \theta=\tilde{\theta}) \operatorname{Pr}(\theta=\tilde{\theta})}
+	\end{aligned}
+\end{equation*}
+
+	where $\operatorname{Pr}(X=x \mid \theta=\hat{\theta}) \stackrel{\text { def }}{=} f_{\hat{\theta}}$.
+\end{frame}
+
+\begin{frame}{Understanding the Evidence Term in Bayes' Rule}
+\begin{equation*}
+	\begin{aligned}
+		\operatorname{Pr}(\theta=\hat{\theta} \mid X=x) &\leftarrow \frac{\operatorname{Pr}(X=x \mid \theta=\hat{\theta}) \operatorname{Pr}(\theta=\hat{\theta})}{\operatorname{Pr}(X=x)} \\
+		&= \frac{\operatorname{Pr}(X=x \mid \theta=\hat{\theta}) \operatorname{Pr}(\theta=\hat{\theta})}{\sum_{\tilde{\theta}} \operatorname{Pr}(X=x \mid \theta=\tilde{\theta}) \operatorname{Pr}(\theta=\tilde{\theta})}
+	\end{aligned}
+\end{equation*}
+
+\begin{itemize}
+	\item \textbf{Bayes' Rule}: It relates the posterior probability $\operatorname{Pr}(\theta=\hat{\theta} \mid X=x)$ to the likelihood $\operatorname{Pr}(X=$ $x \mid \theta=\hat{\theta})$, the prior $\operatorname{Pr}(\theta=\hat{\theta})$, and the evidence $\operatorname{Pr}(X=x)$.
+	\item \textbf{Evidence} $\operatorname{Pr}(X=x)$ : This term is the probability of observing the data $X=x$ under all possible values of the parameter $\theta$. It serves as a normalizing constant to ensure that the posterior probabilities sum to 1.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why It's Expressed as a Sum Over All $\tilde{\theta}$ :}
+	\begin{enumerate}
+		\item \textbf{Marginalization}: The evidence $\operatorname{Pr}(X=x)$ is calculated by marginalizing over all possible values of the parameter $\theta$. This means considering all possible scenarios under which the observed data $X=x$ could occur.
+		\item \textbf{Summation Formulation}: The expression
+		$$
+		\sum_{\bar{\theta}} \operatorname{Pr}(X=x \mid \theta=\tilde{\theta}) \operatorname{Pr}(\theta=\tilde{\theta})
+		$$
+		represents this marginalization. For each possible value $\tilde{\theta}$ of the parameter $\theta$, you calculate the likelihood of observing $X=x$ (i.e., $\operatorname{Pr}(X=x \mid \theta=\tilde{\theta})$ ) and multiply it by the prior probability of that particular $\tilde{\theta}$ (i.e., $\operatorname{Pr}(\theta=\tilde{\theta})$ ). Then, you sum these products over all possible values of $\tilde{\theta}$.
+		\item \textbf{Normalization}: This sum essentially adds up the weighted likelihoods of observing $X=x$ across all possible parameter settings, providing a total probability mass for the observed data. This normalization is crucial because it ensures that the posterior distribution is properly scaled to be a valid probability distribution.
+	\end{enumerate}
+\end{frame}
+\begin{frame}
+		If we have a sample $\mathcal{S}$ of $X$ and the set of possible values for $\theta$ is finite, we can easily estimate $\operatorname{Pr}(\theta=\hat{\theta})$ by applying Bayes' Rule iteratively, one example $x \in \mathcal{S}$ at a time. 
+	\begin{itemize}
+		\item The initial value $\operatorname{Pr}(\theta=\hat{\theta})$ can be guessed such that $\sum_{\hat{\theta}} \operatorname{Pr}(\theta=\hat{\theta})=1$. This guess of the probabilities for different $\hat{\theta}$ is called the \textbf{prior}.
+	\end{itemize}
+	First, we compute $\operatorname{Pr}(\theta=\hat{\theta} \mid X=x_{1})$ for all possible values $\hat{\theta}$. Then, before updating $\operatorname{Pr}(\theta=\hat{\theta} \mid X=x)$ once again, this time for $x=x_{2} \in \mathcal{S}$ using the equation, we replace the prior $\operatorname{Pr}(\theta=\hat{\theta})$ in the equation by the new estimate $\operatorname{Pr}(\theta=\hat{\theta}) \leftarrow \frac{1}{N} \sum_{x \in \mathcal{S}} \operatorname{Pr}(\theta=\hat{\theta} \mid X=x)$.
 \end{frame}
 \end{document}
