@@ -157,6 +157,25 @@
 	\begin{itemize}
 		\item 	If we can calculate the gradient of the function in Equation, we can then set this gradient to zero\footnote{To find the minimum or the maximum of a function, we set the gradient to zero because the value of the gradient at extrema of a function is always zero. In 2D, the gradient at an extremum is a horizontal line.} and find the solution to a system of equations that gives us the optimal values $\mathbf{w}^{*}$ and $b^{*}$.
 	\end{itemize}
+	
+\end{frame}
+\begin{frame}{A Closed-Form Solution}
+	Given the mean squared error (MSE) for a linear model \( f_{\mathbf{w}, b}(\mathbf{x}) = \mathbf{w} \mathbf{x} + b \):
+	\[ \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} (\mathbf{w} \mathbf{x}_i + b - y_i)^2 \]
+	
+	\textbf{Matrix Formulation:} \\
+	Rewriting in matrix terms, where \( \mathbf{X} \) is the design matrix and \( \mathbf{y} \) is the vector of target values:
+	\[ \text{MSE} = \frac{1}{N} (\mathbf{X}\mathbf{w}^{*} - \mathbf{y})^\top (\mathbf{X}\mathbf{w}^{*} - \mathbf{y}) \]
+	
+	\textbf{Derivation:} \\
+	To minimize the MSE, we differentiate with respect to \( \mathbf{w}^{*} \) and set it to zero:
+	\[ \frac{\partial}{\partial \mathbf{w}^{*}} \text{MSE} = 0 \]
+	
+	This leads to the Normal Equation:
+	\[ \mathbf{X}^\top \mathbf{X}\mathbf{w}^{*} = \mathbf{X}^\top \mathbf{y} \]
+	
+	\textbf{Solving for \( \mathbf{w}^{*} \):} \\
+	\[ \mathbf{w}^{*} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y} \]
 \end{frame}
 
 \section{Logistic Regression}
@@ -265,7 +284,13 @@ where $e$ is the base of the natural logarithm (also called \textit{Euler's numb
 	\begin{itemize}
 		\item You can draw a parallel with the multiplication of probabilities of outcomes in a series of independent experiments in the probability theory.
 	\end{itemize}
-
+	Because of the $\exp$ function used in the model, in practice, to avoid \textbf{numerical overflow}, it's more convenient to maximize the \textbf{log-likelihood} instead of likelihood. The log-likelihood is defined as follows:
+	
+	$$
+	\log L_{\mathbf{w}, b} \stackrel{\text { def }}{=} \ln \left(L_{\mathbf{w}, b}(\mathbf{x})\right)=\sum_{i=1}^{N}\left[y_{i} \ln f_{\mathbf{w}, b}(\mathbf{x})+\left(1-y_{i}\right) \ln \left(1-f_{\mathbf{w}, b}(\mathbf{x})\right)\right]
+	$$
+	
+	Because ln is a \textbf{strictly increasing function}, maximizing this function is the same as maximizing its argument, and the solution to this new optimization problem is the same as the solution to the original problem. \textit{Contrary to linear regression}, there's no closed form solution to the above optimization problem. A typical numerical optimization procedure used in such cases is \textbf{gradient descent}.
 \end{frame}
 
 \begin{frame}
