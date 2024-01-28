@@ -145,7 +145,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Overall Performance}
     \textbf{Overall performance} is typically evaluated by \textit{average accuracy} (AA) and \textit{average incremental accuracy} (AIA).
     \begin{itemize}
         \item Let $a_{k, j} \in[0,1]$ denote the classification accuracy evaluated on the test set of the $j$-th task after incremental learning of the $k$-th task $(j \leq k)$. The output space to compute $a_{k, j}$ consists of the classes in either $\mathcal{Y}_{j}$ or $\cup_{i=1}^{k} \mathcal{Y}_{i}$, corresponding to the use of multi-head evaluation (e.g., TIL) or single-head evaluation (e.g., CIL).
@@ -160,7 +160,7 @@
     where AA represents the overall performance at the current moment and AIA further reflects the historical variation.
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Memory Stability}
     \textbf{Memory stability} can be evaluated by \textit{forgetting measure} (FM) and \textit{backward transfer} (BWT). As for the former, the forgetting of a task is calculated by the difference between its maximum performance obtained in the past and its current performance:
 
     $$
@@ -182,19 +182,46 @@
     where the forgetting is usually reflected as a negative BWT.
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Learning Plasticity}
     \textbf{Learning plasticity} can be evaluated by \textit{intransience measure} (IM) and \textit{forward transfer} (FWT). IM is defined as the inability of a model to learn new tasks, calculated by the difference of a task between its joint training performance and continual learning performance:
 
     $$
         \mathrm{IM}_{k}=a_{k}^{*}-a_{k, k}
     $$
 
-    where $a_{k}^{*}$ is the classification accuracy of a randomlyinitialized reference model jointly trained with $\cup_{j=1}^{k} \mathcal{D}_{j}$ for the $k$-th task. In comparison, FWT evaluates the average influence of all old tasks on the current $k$-th task:
+    where $a_{k}^{*}$ is the classification accuracy of a randomlyinitialized reference model jointly trained with $\cup_{j=1}^{k} \mathcal{D}_{j}$ for the $k$-th task. 
+    
+    In comparison, FWT evaluates the average influence of all old tasks on the current $k$-th task:
 
     $$
         \mathrm{FWT}_{k}=\frac{1}{k-1} \sum_{j=2}^{k}\left(a_{j, j}-\tilde{a}_{j}\right)
     $$
 
     where $\tilde{a}_{j}$ is the classification accuracy of a randomlyinitialized reference model trained with $\mathcal{D}_{j}$ for the $j$-th task. Note that, $a_{k, j}$ can be adapted to other forms depending on the task type, such as average precision (AP) for object detection, Intersection-over-Union (IoU) for semantic segmentation, Fréchet Inception Distance (FID) for image generation, normalized reward for reinforcement learning, etc, and the above evaluation metrics should be adjusted accordingly.
+\end{frame}
+\section{Theoretical Foundation and Analysis}
+\begin{frame}{Theoretical Foundation and Analysis}
+	Theoretical efforts in continual learning, with respect to stability-plasticity trade-off and generalizability analysis, and relate them to the main motivation for representative strategies.
+\end{frame}
+
+\subsection{Stability-Plasticity Trade-off}
+\begin{frame}{Stability-Plasticity Trade-off}
+	Let's consider a general setup for continual learning, where a neural network with parameters $\theta \in \mathbb{R}^{|\theta|}$ needs to learn $k$ incremental tasks. 
+	\begin{itemize}
+		\item The training set and test set of each task are assumed to follow the same distribution $\mathbb{D}_{t}, t=1, \ldots, k$, where the training set $\mathcal{D}_{t}=\left\{\mathcal{X}_{t}, \mathcal{Y}_{t}\right\}=\left\{\left(x_{t, n}, y_{t, n}\right)\right\}_{n=1}^{N_{t}}$ includes $N_{t}$ data-label pairs.
+	\end{itemize}
+	 The objective is to learn a probabilistic model $p\left(\mathcal{D}_{1: k} \mid \theta\right)=\prod_{t=1}^{k} p\left(\mathcal{D}_{t} \mid \theta\right)$ (with assumption of conditional independence) that can perform well on all tasks denoted as $\mathcal{D}_{1: k}:=\left\{\mathcal{D}_{1}, \ldots, \mathcal{D}_{k}\right\}$. 
+	 \begin{itemize}
+	 	\item The task-related performance for discriminative models can be expressed as $\log p\left(\mathcal{D}_{t} \mid \theta\right)=\sum_{n=1}^{N_{t}} \log p_{\theta}\left(y_{t, n} \mid x_{t, n}\right)$. 
+	 \end{itemize}
+	 The central challenge of continual learning generally arises from the sequential nature of learning: when learning the $k$-th task from $\mathcal{D}_{k}$, the old training sets $\left\{\mathcal{D}_{1}, \ldots, \mathcal{D}_{k-1}\right\}$ are inaccessible. Therefore, it is critical but extremely challenging to capture the distributions of both old and new tasks in a balanced manner, i.e., ensuring an appropriate stability-plasticity trade-off, where excessive learning plasticity or memory stability can largely compromise each other.
+\end{frame}
+
+\begin{frame}{}
+	A straightforward idea is to approximate and recover the old data distributions by storing a few old training samples or training a generative model, known as the replay-based approach.
+	\begin{itemize}
+		\item According to the learning theory for supervised learning, the performance of an old task is improved with replaying more old training samples that approximate its distribution, but with potential privacy issues and a linear increase in resource overhead.
+		\item The use of generative models is also limited by the huge resource overhead, as well as their own catastrophic forgetting and expressiveness.
+	\end{itemize}
 \end{frame}
 \end{document}
