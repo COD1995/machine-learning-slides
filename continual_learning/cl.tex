@@ -8,7 +8,7 @@
 
 \usepackage{xcolor}  
 \newcommand{\cb}[1]{{\color{CadetBlue}#1}}
-
+\setlength{\parskip}{0.3em}
 
 \usetheme{Berkeley}
 % \setbeamertemplate{footline}[frame number]
@@ -189,8 +189,8 @@
         \mathrm{IM}_{k}=a_{k}^{*}-a_{k, k}
     $$
 
-    where $a_{k}^{*}$ is the classification accuracy of a randomlyinitialized reference model jointly trained with $\cup_{j=1}^{k} \mathcal{D}_{j}$ for the $k$-th task. 
-    
+    where $a_{k}^{*}$ is the classification accuracy of a randomlyinitialized reference model jointly trained with $\cup_{j=1}^{k} \mathcal{D}_{j}$ for the $k$-th task.
+
     In comparison, FWT evaluates the average influence of all old tasks on the current $k$-th task:
 
     $$
@@ -201,27 +201,99 @@
 \end{frame}
 \section{Theoretical Foundation and Analysis}
 \begin{frame}{Theoretical Foundation and Analysis}
-	Theoretical efforts in continual learning, with respect to stability-plasticity trade-off and generalizability analysis, and relate them to the main motivation for representative strategies.
+    Theoretical efforts in continual learning, with respect to stability-plasticity trade-off and generalizability analysis, and relate them to the main motivation for representative strategies.
 \end{frame}
 
 \subsection{Stability-Plasticity Trade-off}
 \begin{frame}{Stability-Plasticity Trade-off}
-	Let's consider a general setup for continual learning, where a neural network with parameters $\theta \in \mathbb{R}^{|\theta|}$ needs to learn $k$ incremental tasks. 
-	\begin{itemize}
-		\item The training set and test set of each task are assumed to follow the same distribution $\mathbb{D}_{t}, t=1, \ldots, k$, where the training set $\mathcal{D}_{t}=\left\{\mathcal{X}_{t}, \mathcal{Y}_{t}\right\}=\left\{\left(x_{t, n}, y_{t, n}\right)\right\}_{n=1}^{N_{t}}$ includes $N_{t}$ data-label pairs.
-	\end{itemize}
-	 The objective is to learn a probabilistic model $p\left(\mathcal{D}_{1: k} \mid \theta\right)=\prod_{t=1}^{k} p\left(\mathcal{D}_{t} \mid \theta\right)$ (with assumption of conditional independence) that can perform well on all tasks denoted as $\mathcal{D}_{1: k}:=\left\{\mathcal{D}_{1}, \ldots, \mathcal{D}_{k}\right\}$. 
-	 \begin{itemize}
-	 	\item The task-related performance for discriminative models can be expressed as $\log p\left(\mathcal{D}_{t} \mid \theta\right)=\sum_{n=1}^{N_{t}} \log p_{\theta}\left(y_{t, n} \mid x_{t, n}\right)$. 
-	 \end{itemize}
-	 The central challenge of continual learning generally arises from the sequential nature of learning: when learning the $k$-th task from $\mathcal{D}_{k}$, the old training sets $\left\{\mathcal{D}_{1}, \ldots, \mathcal{D}_{k-1}\right\}$ are inaccessible. Therefore, it is critical but extremely challenging to capture the distributions of both old and new tasks in a balanced manner, i.e., ensuring an appropriate stability-plasticity trade-off, where excessive learning plasticity or memory stability can largely compromise each other.
+    Let's consider a general setup for continual learning, where a neural network with parameters $\theta \in \mathbb{R}^{|\theta|}$ needs to learn $k$ incremental tasks.
+    \begin{itemize}
+        \item The training set and test set of each task are assumed to follow the same distribution $\mathbb{D}_{t}, t=1, \ldots, k$, where the training set $\mathcal{D}_{t}=\left\{\mathcal{X}_{t}, \mathcal{Y}_{t}\right\}=\left\{\left(x_{t, n}, y_{t, n}\right)\right\}_{n=1}^{N_{t}}$ includes $N_{t}$ data-label pairs.
+    \end{itemize}
+    The objective is to learn a probabilistic model $p\left(\mathcal{D}_{1: k} \mid \theta\right)=\prod_{t=1}^{k} p\left(\mathcal{D}_{t} \mid \theta\right)$ (with assumption of conditional independence) that can perform well on all tasks denoted as $\mathcal{D}_{1: k}:=\left\{\mathcal{D}_{1}, \ldots, \mathcal{D}_{k}\right\}$.
+    \begin{itemize}
+        \item The task-related performance for discriminative models can be expressed as $\log p\left(\mathcal{D}_{t} \mid \theta\right)=\sum_{n=1}^{N_{t}} \log p_{\theta}\left(y_{t, n} \mid x_{t, n}\right)$.
+    \end{itemize}
+    The central challenge of continual learning generally arises from the sequential nature of learning: when learning the $k$-th task from $\mathcal{D}_{k}$, the old training sets $\left\{\mathcal{D}_{1}, \ldots, \mathcal{D}_{k-1}\right\}$ are inaccessible. Therefore, it is critical but extremely challenging to capture the distributions of both old and new tasks in a balanced manner, i.e., ensuring an appropriate \textbf{stability-plasticity trade-off}, where excessive learning plasticity or memory stability can largely compromise each other.
 \end{frame}
 
 \begin{frame}{}
-	A straightforward idea is to approximate and recover the old data distributions by storing a few old training samples or training a generative model, known as the replay-based approach.
-	\begin{itemize}
-		\item According to the learning theory for supervised learning, the performance of an old task is improved with replaying more old training samples that approximate its distribution, but with potential privacy issues and a linear increase in resource overhead.
-		\item The use of generative models is also limited by the huge resource overhead, as well as their own catastrophic forgetting and expressiveness.
-	\end{itemize}
+    A straightforward idea is to approximate and recover the old data distributions by storing a few old training samples or training a generative model, known as the replay-based approach.
+    \begin{itemize}
+        \item According to the learning theory for supervised learning, the performance of an old task is improved with replaying more old training samples that approximate its distribution, but with potential privacy issues and a linear increase in \textbf{resource overhead}.
+        \item The use of generative models is also limited by the huge resource overhead, as well as their own catastrophic forgetting and expressiveness.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    An alternative choice is to propagate the old data distributions in updating parameters through formulating continual learning in a \textit{Bayesian framework}.
+    \begin{itemize}
+        \item Based on a prior, \(p(\theta)\) the posterior after observing the \(k\)-th task can be computed with Bayes' rule:
+              $$
+                  p\left(\theta \mid \mathcal{D}_{1: k}\right) \propto p(\theta) \prod_{t=1}^{k} p\left(\mathcal{D}_{t} \mid \theta\right) \propto p\left(\theta \mid \mathcal{D}_{1: k-1}\right) p\left(\mathcal{D}_{k} \mid \theta\right)
+              $$
+              where the posterior $p\left(\theta \mid \mathcal{D}_{1: k-1}\right)$ of the $(k-1)$-th task becomes the prior of the $k$-th task, and thus enables the new posterior $p\left(\theta \mid \mathcal{D}_{1: k}\right)$ to be computed with only the current training set $\mathcal{D}_{k}$.
+    \end{itemize}
+    However, as the posterior is generally intractable (except very special cases), a common option is to approximate it with $q_{k-1}(\theta) \approx p\left(\theta \mid \mathcal{D}_{1: k-1}\right)$, likewise for $q_{k}(\theta) \approx p\left(\theta \mid \mathcal{D}_{1: k}\right)$.
+\end{frame}
+
+\begin{frame}{Laplace Approximation}
+    In the following, we will introduce two widely-used approximation strategies:
+
+    The first is \textit{online Laplace approximation}, which approximates $p\left(\theta \mid \mathcal{D}_{1: k-1}\right)$ as a multivariate Gaussian with local gradient information.
+    \begin{itemize}
+        \item Specifically, we can parameterize $q_{k-1}(\theta)$ with $\phi_{k-1}$ and construct an approximate Gaussian posterior $q_{k-1}(\theta):=q\left(\theta ; \phi_{k-1}\right)=$ $\mathcal{N}\left(\theta ; \mu_{k-1}, \Lambda_{k-1}^{-1}\right)$ through performing a second-order Taylor expansion around the mode $\mu_{k-1} \in \mathbb{R}^{|\theta|}$ of $p\left(\theta \mid \mathcal{D}_{1: k-1}\right)$, where $\Lambda_{k-1}$ denotes the precision matrix and $\phi_{k-1}=$ $\left\{\mu_{k-1}, \Lambda_{k-1}\right\}$, likewise for $q\left(\theta ; \phi_{k}\right), \mu_{k}$ and $\Lambda_{k}$.
+    \end{itemize}
+    The posterior mode for learning the current $k$-th task can be computed as
+
+    $$
+        \begin{aligned}
+            \mu_{k} & =\arg \max _{\theta} \log p\left(\theta \mid \mathcal{D}_{1: k}\right)                                                                                          \\
+                    & \approx \arg \max _{\theta} \log p\left(\mathcal{D}_{k} \mid \theta\right)+\log q\left(\theta ; \phi_{k-1}\right)                                               \\
+                    & =\arg \max _{\theta} \log p\left(\mathcal{D}_{k} \mid \theta\right)-\frac{1}{2}\left(\theta-\mu_{k-1}\right)^{\top} \Lambda_{k-1}\left(\theta-\mu_{k-1}\right),
+        \end{aligned}
+    $$
+    which can be obtained from $\mu_{k-1}$ and $\Lambda_{k-1}$.
+\end{frame}
+
+\begin{frame}
+    Similarly, $\Lambda_{k}$ can be updated recursively:
+
+    $$
+        \begin{aligned}
+            \Lambda_{k} & =-\left.\nabla_{\theta}^{2} \log p\left(\theta \mid \mathcal{D}_{1: k}\right)\right|_{\theta=\mu_{k}}                  \\
+                        & \approx-\left.\nabla_{\theta}^{2} \log p\left(\mathcal{D}_{k} \mid \theta\right)\right|_{\theta=\mu_{k}}+\Lambda_{k-1}
+        \end{aligned}
+    $$
+
+    where the first term on the right side is the Hessian of the negative $\log$ likelihood of $\mathcal{D}_{k}$ at $\mu_{k}$, denoted as $H\left(\mathcal{D}_{k}, \mu_{k}\right)$.
+    \begin{itemize}
+        \item In practice, $H\left(\mathcal{D}_{k}, \mu_{k}\right)$ is often computationally inefficient due to the great dimensionality of $\mathbb{R}^{|\theta|}$, and there is no guarantee that the approximated $\Lambda_{k}$ is positive semi-definite for the Gaussian assumption.
+    \end{itemize}
+    To overcome these issues, the Hessian can be approximated by the Fisher information matrix (FIM):
+
+    $$F_{k}=\left.\mathbb{E}\left[\nabla_{\theta} \log p\left(\mathcal{D}_{k} \mid \theta\right) \nabla_{\theta} \log p\left(\mathcal{D}_{k} \mid \theta\right)^{\top}\right]\right|_{\theta=\mu_{k}} \approx H\left(\mathcal{D}_{k}, \mu_{k}\right)$$
+
+    The computation of FIM can be further simplified with a diagonal approximation or a Kronecker-factored approximation.
+\end{frame}
+
+\begin{frame}
+    Formally,
+    $$
+        \begin{aligned}
+            \mu_{k} & =\arg \max _{\theta} \log p\left(\theta \mid \mathcal{D}_{1: k}\right)                                                                                          \\
+                    & \approx \arg \max _{\theta} \log p\left(\mathcal{D}_{k} \mid \theta\right)+\log q\left(\theta ; \phi_{k-1}\right)                                               \\
+                    & =\arg \max _{\theta} \log p\left(\mathcal{D}_{k} \mid \theta\right)-\frac{1}{2}\left(\theta-\mu_{k-1}\right)^{\top} \Lambda_{k-1}\left(\theta-\mu_{k-1}\right),
+        \end{aligned}
+    $$
+    is implemented by saving a copy of the old model $\mu_{k-1}$ to regularize parameter changes, which is known as the \textit{regularization based approach}. Here, we use EWC as an example and present its loss function:
+    $$
+        \mathcal{L}_{\mathrm{EWC}}(\theta)=\ell_{k}(\theta)+\frac{\lambda}{2}\left(\theta-\mu_{k-1}\right)^{\top} \hat{F}_{1: k-1}\left(\theta-\mu_{k-1}\right),
+    $$
+    where $\ell_{k}$ denotes the task-specific loss, the FIM $\hat{F}_{1: k-1}=$ $\sum_{t=1}^{k-1} \operatorname{diag}\left(F_{t}\right)$ with a diagonal approximation $\operatorname{diag}(\cdot)$ of each $F_{t}$, and $\lambda$ is a hyperparameter to control the strength of regularization.
+\end{frame}
+
+\begin{frame}{Variational Inference}
+    The second is \textit{online variational inference} (VI). There are many different ways to do this, and a representative one is to minimize the following KL-divergence over a family $\mathcal{Q}$ that satisfies $p\left(\theta \mid \mathcal{D}_{1: k}\right) \in \mathcal{Q}$ at the current $k$-th task:
 \end{frame}
 \end{document}

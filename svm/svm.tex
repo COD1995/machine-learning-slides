@@ -3,7 +3,6 @@
 \usepackage{libertinus}
 \usepackage{amsmath}
 \usepackage[most]{tcolorbox}
-\usepackage{pgfplots}
 \usepackage{graphicx}
 
 \usepackage{hyperref}
@@ -11,7 +10,7 @@
 \usepackage{xcolor}  
 \newcommand{\cb}[1]{{\color{CadetBlue}#1}}
 
-
+\setlength{\parskip}{0.5em}
 \usetheme{Berkeley}
 \setbeamertemplate{navigation symbols}{}
 
@@ -28,9 +27,16 @@
 \end{frame}
 
 \begin{frame}
+	This section is an adaptation of Andrew Ng's Machine Learning Course on SVM.
+\end{frame}
+
+\begin{frame}
 	\frametitle{Outline}
 	\tableofcontents
 \end{frame}
+
+
+
 \section{Alternative View of Logistic Regression}
 \begin{frame}{Alternative View of Logistic Regression}
 	\begin{columns}
@@ -79,7 +85,7 @@
 \begin{frame}{Support Vector Machine}
 	\textbf{Cost Function of Logistic Regression}
 	\begin{align*}
-		\min _\theta \frac{1}{m}\Bigg[ & \sum_{i=1}^m y^{(i)}\left(-\log h_\theta\left(x^{(i)}\right)\right)                          \\
+		\min _\theta \frac{1}{m}\Bigg[ & \sum_{i=1}^m y^{(i)}\left(-\log h_\theta\left(x^{(i)}\right)\right)\\
 		                               & + \left(1-y^{(i)}\right)\left(-\log \left(1-h_\theta\left(x^{(i)}\right)\right)\right)\Bigg] \\
 		                               & + \frac{\lambda}{2 m} \sum_{j=1}^n \theta_j^2
 	\end{align*}
@@ -89,38 +95,76 @@
 	$$
 \end{frame}
 
+\subsection{Large Margin Intuition}
 \begin{frame}{Large Margin Intuition}
 	\textbf{Support Vector Machine}
 	$$
 		\min _\theta C \sum_{i=1}^m\left[y^{(i)} \operatorname{cost}_1\left(\theta^T x^{(i)}\right)+\left(1-y^{(i)}\right) \operatorname{cost}_0\left(\theta^T x^{(i)}\right)\right]+\frac{1}{2} \sum_{i=1}^n \theta_j^2
 	$$
-	\begin{tikzpicture}[scale=0.7]
-		\begin{axis}[
-				axis lines=middle,
-				axis line style={->},
-				xlabel={$z$},
-				ylabel={},
-				xlabel style={at={(ticklabel* cs:1)},anchor=north west},
-				ylabel style={at={(ticklabel* cs:1)},anchor=south west},
-				xtick={-1,1},
-				ytick={0,1},
-				ymin=-0.5, ymax=1.5,
-				xmin=-1.5, xmax=1.5,
-				clip=false,
-				width=10cm,
-				height=5cm,
-				ticks=none
-			]
-
-			% Add the line plot for z < 1
-			\addplot[domain=-1.5:1, samples=2, thick] {-x+1};
-			% Add the horizontal line plot for z >= 1
-			\addplot[domain=1:1.5, samples=2, thick] {0};
-
-		\end{axis}
-	\end{tikzpicture}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{imgs/svm_4.png}
+		\end{figure}
+		If \(y=1\), we want \(\theta^{T} x \geq 1\) (not just \(\left.\geq 0\right)\)
+		
+		\column{0.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{imgs/svm_5.png}
+		\end{figure}
+		If \(y=0\), we want \(\theta^{T} x \leq-1\) (not just \(\left.<0\right)\)
+	\end{columns}
 \end{frame}
 
+\begin{frame}{A very large \(C\)}
+	\textbf{Support Vector Machine}
+	$$
+	\min _\theta C \sum_{i=1}^m\left[y^{(i)} \operatorname{cost}_1\left(\theta^T x^{(i)}\right)+\left(1-y^{(i)}\right) \operatorname{cost}_0\left(\theta^T x^{(i)}\right)\right]+\frac{1}{2} \sum_{i=1}^n \theta_j^2
+	$$
+	Given that \(C\) is a very large value, we want that the first term to be \(0\). Let's try to understand the optimization problem in the context of what would it take to make this first term in the objective equal to \(0\). 
+	\vspace{0.3cm}
+	\begin{columns}
+		\column{0.5\textwidth}
+		Whenever \(y^{(i)}=1\), \(\theta^{\top} x^{(i)} \geqslant 1\); 
+		\column{0.5\textwidth}
+		Whenever \(y^{(i)}=0\), \(\theta^{\top} x^{(i)} \leqslant-1\)
+	\end{columns}
+	
+	Now, the optimization problem can be written as: 
+	\begin{equation*}
+		\begin{aligned}
+			& \text{min} C\cdot 0 + \frac{1}{2}\sum_{i=1}^n \theta_j^2 \\
+			\text{s.t.  } &  \theta^{\top} x^{(i)} \geqslant 1 \quad \text { if } y^{(i)}=1 \\
+			& \theta^{T} x^{(i)} \leqslant-1 \quad \text {if } y^{(i)}=0
+		\end{aligned}
+	\end{equation*}
+\end{frame}
+
+\begin{frame}
+	\textbf{SVM Decision Boundary: Linearly separable case}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\linewidth]{imgs/svm_6}
+	\caption{Linearly Separable Case}
+	\label{fig:svm6}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\textbf{Large margin classifier in presence of outliers}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.4\linewidth]{imgs/svm_7}
+		\label{fig:svm7}
+	\end{figure}
+\end{frame}
+
+\subsection{The Mathematics behind Large Margin Classification}
+\begin{frame}{The Mathematics behind Large Margin Classification}
+	\textbf{Vector Inner Product}
+\end{frame}
 \begin{frame}
 	\begin{center}
 		\Huge Questions?
