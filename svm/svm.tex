@@ -6,9 +6,14 @@
 \usepackage{graphicx}
 
 \usepackage{hyperref}
-
+\hypersetup{
+	colorlinks=true,
+}
 \usepackage{xcolor}  
 \newcommand{\cb}[1]{{\color{CadetBlue}#1}}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
 
 \setlength{\parskip}{0.5em}
 \usetheme{Berkeley}
@@ -26,9 +31,6 @@
 	\titlepage
 \end{frame}
 
-\begin{frame}
-	This section is an adaptation of Andrew Ng's Machine Learning Course on SVM.
-\end{frame}
 
 \begin{frame}
 	\frametitle{Outline}
@@ -164,7 +166,150 @@
 \subsection{The Mathematics behind Large Margin Classification}
 \begin{frame}{The Mathematics behind Large Margin Classification}
 	\textbf{Vector Inner Product}
+	\vspace{0.5cm}
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+		\begin{tikzpicture}[scale=0.7] % Adjust the scale to make the plot smaller
+			\begin{axis}[
+				axis lines=middle,
+				axis line style={->},
+				xlabel={$x$},
+				ylabel={$y$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=west},
+				ylabel style={at={(ticklabel* cs:1)},anchor=south},
+				xmin=0, xmax=5, % Only positive x-axis
+				ymin=0, ymax=5, % Only positive y-axis
+				ticks=none,
+				small,
+				]
+			\end{axis}
+		\end{tikzpicture}
+				\begin{tikzpicture}[scale=0.7] % Adjust the scale to make the plot smaller
+			\begin{axis}[
+				axis lines=middle,
+				axis line style={->},
+				xlabel={$x$},
+				ylabel={$y$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=west},
+				ylabel style={at={(ticklabel* cs:1)},anchor=south},
+				xmin=0, xmax=5, % Only positive x-axis
+				ymin=0, ymax=5, % Only positive y-axis
+				ticks=none,
+				small,
+				]
+			\end{axis}
+		\end{tikzpicture}
+		\column{0.5\textwidth}
+		$u=\left[\begin{array}{l}u_{1} \\ u_{2}\end{array}\right] \quad v=\left[\begin{array}{l}v_{1} \\ v_{2}\end{array}\right]$
+	\end{columns}
 \end{frame}
+
+\begin{frame}{SVM Decision Boundary}
+	\begin{columns}[T]
+	    \column{0.5\textwidth}
+		\begin{align*}
+			\min_{\theta} \quad & \frac{1}{2} \sum_{j=1}^{n} \theta_{j}^{2} \\
+			\text{s.t.} \quad & \theta^{T} x^{(i)} \geq 1 \quad \text{if } y^{(i)}=1 \\
+			& \theta^{T} x^{(i)} \leq -1 \quad \text{if } y^{(i)}=0
+		\end{align*}
+		\column{0.5\textwidth}
+		\begin{tikzpicture}[scale=0.7] % Adjust the scale to make the plot smaller
+		\begin{axis}[
+			axis lines=middle,
+			axis line style={->},
+			xlabel={$x$},
+			ylabel={$y$},
+			xlabel style={at={(ticklabel* cs:1)},anchor=west},
+			ylabel style={at={(ticklabel* cs:1)},anchor=south},
+			xmin=0, xmax=5, % Only positive x-axis
+			ymin=0, ymax=5, % Only positive y-axis
+			ticks=none,
+			small,
+			]
+		\end{axis}
+		\end{tikzpicture}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+\begin{align*}
+	\min_{\theta} \quad & \frac{1}{2} \sum_{j=1}^{n} \theta_{j}^{2} =\frac{1}{2}\|\theta\|^{2} \\
+	\text{s.t.} \quad & p^{(i)} \cdot \|\theta\| \geq 1 \quad \text{if } y^{(i)}=1 \\
+	& p^{(i)} \cdot \|\theta\| \leq -1 \quad \text{if } y^{(i)}=0
+\end{align*}
+where \(p^{(i)}\) is the projection of \(x^{(i)}\) onto the vector \(\theta\).
+Simplification: \(\theta_{0}=0\); this simplification merely makes the decision boundary to pass through (0,0);
+\vspace{0.3cm}
+\begin{columns}
+	\column{0.5\textwidth}
+	\textbf{Hypothesis 1: Bad Decision Boundary}
+	\includegraphics[width = \textwidth]{imgs/svm_8.png}
+	\column{0.5\textwidth}
+	\textbf{Hypothesis 2: Good Decision Boundary}
+	\includegraphics[width = \textwidth]{imgs/svm_8.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Reading Assignments}
+	\begin{enumerate}
+		\item Why the parameter vector orthogonal to the decision boundary?
+		\begin{itemize}
+			\item \href{https://stackoverflow.com/questions/10177330/why-is-weight-vector-orthogonal-to-decision-plane-in-neural-networks/10357067}{Orthogonality in Neural Network}
+			\item 			\href{https://datascience.stackexchange.com/questions/6054/in-svm-algorithm-why-vector-w-is-orthogonal-to-the-separating-hyperplane}{SVM}
+		\end{itemize}
+	\end{enumerate}
+\end{frame}
+
+\section{Kernels}
+\begin{frame}{Non-linear Decision Boundary}
+	\begin{columns}[T]
+		\column{0.4\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{imgs/svm_9.png}
+		\end{figure}
+		\column{0.6\textwidth}
+		Predict \(y=1\) if 
+		\vspace{0.3cm}
+		
+		\(\theta_{0}+\theta_{1} x_{1}+\theta_{2} x_{2}+\theta_{3} x_{1} x_{2}+\theta_{4} x_{1}^{2}+\theta_{5} x_{2}^{2}+\cdots \geq 0\)
+		
+		 $$
+		 h_{0}(x)=\left\{\begin{array}{ll}1 & \text { if } \theta_{0}+\theta_{1} x_{1}+\cdots \geqslant 0 \\ 0 & \text { otherise. }\end{array}\right.
+		 $$
+		 
+		\begin{align*}
+			\theta_{0} & +\theta_{1} f_{1} + \theta_{2} f_{2} + \theta_{3} f_{3} + \cdots \\
+			f_{1} & =x_{1}, \quad f_{2}=x_{2}, \quad f_{3}=x_{1} x_{2}, \\
+			f_{4} & =x_{1}^{2}, \quad f_{5}=x_{2}^{2}, \ldots
+		\end{align*}
+	\end{columns}
+	\vspace{0.3cm}
+	Is there a different/ better choice of the features \(f_{1}, f_{2}, f_{3}, \ldots\)?
+\end{frame}
+
+\begin{frame}{Kernel}
+	\begin{columns}
+		\column{0.4\textwidth}
+				\begin{tikzpicture}[scale=0.7] % Adjust the scale to make the plot smaller
+			\begin{axis}[
+				axis lines=middle,
+				axis line style={->},
+				xlabel={$x_1$},
+				ylabel={$x_2$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=west},
+				ylabel style={at={(ticklabel* cs:1)},anchor=south},
+				xmin=0, xmax=5, % Only positive x-axis
+				ymin=0, ymax=5, % Only positive y-axis
+				ticks=none,
+				small,
+				]
+			\end{axis}
+		\end{tikzpicture}
+		\column{0.6\textwidth}
+	\end{columns}
+\end{frame}
+
 \begin{frame}
 	\begin{center}
 		\Huge Questions?

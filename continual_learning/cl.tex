@@ -294,6 +294,39 @@
 \end{frame}
 
 \begin{frame}{Variational Inference}
-    The second is \textit{online variational inference} (VI). There are many different ways to do this, and a representative one is to minimize the following KL-divergence over a family $\mathcal{Q}$ that satisfies $p\left(\theta \mid \mathcal{D}_{1: k}\right) \in \mathcal{Q}$ at the current $k$-th task:
+    The second is \textit{online variational inference} (VI).
+    \begin{itemize}
+        \item There are many different ways to do this, and a representative one is to minimize the following KL-divergence over a family $\mathcal{Q}$ that satisfies $p\left(\theta \mid \mathcal{D}_{1: k}\right) \in \mathcal{Q}$ at the current $k$-th task:
+              $$
+                  q_{k}(\theta)=\arg \min _{q \in \mathcal{Q}} \operatorname{KL}\left(q(\theta) \| \frac{1}{Z_{k}} q_{k-1}(\theta) p\left(\mathcal{D}_{k} \mid \theta\right)\right),
+              $$
+              where $Z_{k}$ is the normalizing constant of $q_{k-1}(\theta) p\left(\mathcal{D}_{k} \mid \theta\right)$.
+    \end{itemize}
+    In practice, the above minimization can be achieved by employing an additional Monte Carlo approximation, with specifying $q_{k}(\theta):=q\left(\theta ; \phi_{k}\right)=\mathcal{N}\left(\theta ; \mu_{k}, \Lambda_{k}^{-1}\right)$ as a multivariate Gaussian.
+
+    Here we use VCL as an example, which minimizes the following objective (i.e., maximize its  negative):
+    $$
+        \mathcal{L}_{\mathrm{VCL}}\left(q_{k}(\theta)\right)=\mathbb{E}_{q_{k}(\theta)}\left(\ell_{k}(\theta)\right)+\mathrm{KL}\left(q_{k}(\theta) \| q_{k-1}(\theta)\right),
+    $$
+    where the KL-divergence can be computed in a closed-form  and serves as an implicit regularization term.
+
+\end{frame}
+
+\begin{frame}
+    The loss function we have seen from the two approaches,
+    $$
+        \mathcal{L}_{\mathrm{EWC}}(\theta)=\ell_{k}(\theta)+\frac{\lambda}{2}\left(\theta-\mu_{k-1}\right)^{\top} \hat{F}_{1: k-1}\left(\theta-\mu_{k-1}\right),
+    $$
+    and,
+    $$
+        \mathcal{L}_{\mathrm{VCL}}\left(q_{k}(\theta)\right)=\mathbb{E}_{q_{k}(\theta)}\left(\ell_{k}(\theta)\right)+\mathrm{KL}\left(q_{k}(\theta) \| q_{k-1}(\theta)\right),
+    $$
+    take similar forms, the former is a local approximation at a set of deterministic parameters $\theta$, while the latter is computed by sampling from the variational distribution $q_{k}(\theta)$.
+
+    This is  attributed to the fundamental difference between the two approximation strategies with slightly different performance in particular settings.
+\end{frame}
+
+\begin{frame}
+    In addition to the parameter space, the idea of sequential Bayesian inference is also applicable to the function space, which tends to enable more flexibility in updating parameters. Also, there are many other extensions of VI, such as improving posterior updates with variational auto-regressive Gaussian processes (VAR-GPs), constructing task-specific parameters, and adapting to a non-stationary data stream.
 \end{frame}
 \end{document}

@@ -16,6 +16,9 @@
 \newcommand{\cb}[1]{{\color{CadetBlue}#1}}
 
 
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
 \usetheme{Berkeley}
 \setbeamertemplate{navigation symbols}{}
 
@@ -147,6 +150,129 @@
 			\item The summation runs over all classes $C$.
 		\end{itemize}
 	\end{frame}
+	
+	\begin{frame}{A Numerical Example}
+		\begin{center}
+					\begin{tabular}{|l|c|c|c|c|c|}\hline \textbf{Day} & \textbf{Outlook} & \textbf{Temp} & \textbf{Humidity} & \textbf{Wind} & \textbf{PlayTennis} \\ \hline D1 & Sunny & Hot & High & Weak & No \\ \hline D2 & Sunny & Hot & High & Strong & No \\ \hline D3 & Overcast & Hot & High & Weak & Yes \\ \hline D4 & Rain & Mild & High & Weak & Yes \\ \hline D5 & Rain & Cool & Normal & Weak & Yes \\ \hline D6 & Rain & Cool & Normal & Strong & No \\ \hline D7 & Overcast & Cool & Normal & Strong & Yes \\ \hline D8 & Sunny & Mild & High & Weak & No \\ \hline D9 & Sunny & Cool & Normal & Weak & Yes \\ \hline D10 & Rain & Mild & Normal & Weak & Yes \\ \hline D11 & Sunny & Mild & Normal & Strong & Yes \\ \hline D12 & Overcast & Mild & High & Strong & Yes \\ \hline D13 & Overcast & Hot & Normal & Weak & Yes \\ \hline D14 & Rain & Mild & High & Strong & No \\ \hline\end{tabular}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}
+		
+		\begin{columns}[T]
+			\column{0.4\textwidth}
+			\includegraphics[width=\textwidth]{imgs/algorithm_9.png}
+			\column{0.6\textwidth}
+			\textcolor{red}{\textbf{Attribute: Outlook}}
+			 
+			Values \((\) Outlook \()=\) Sunny, Overcast, Rain
+			\begin{enumerate}
+				\item 	\(S=[9+, 5-] \quad \operatorname{Entropy}(S)=-\frac{9}{14} \log _{2} \frac{9}{14}-\frac{5}{14} \log _{2} \frac{5}{14}=0.94\)
+				\item 	\(S_{\text {Sunny }} \leftarrow[2+, 3-] \quad\) Entropy \(\left(S_{\text {Sunny }}\right)=-\frac{2}{5} \log _{2} \frac{2}{5}-\frac{3}{5} \log _{2} \frac{3}{5}=0.971\)
+				\item \(S_{\text {Overcast }} \leftarrow[4+, 0-] \quad\) Entropy \(\left(S_{\text {Overcast }}\right)=-\frac{4}{4} \log _{2} \frac{4}{4}-\frac{0}{4} \log _{2} \frac{0}{4}=0\)
+				\item \(S_{\text {Rain }} \leftarrow[3+, 2-] \quad\) Entropy \(\left(S_{\text {Rain }}\right)=-\frac{3}{5} \log _{2} \frac{3}{5}-\frac{2}{5} \log _{2} \frac{2}{5}=0.971\)
+			\end{enumerate}
+			Sometimes people calculate the maximum information gain for ID3 but it is the same thing as minimize entropy: 
+			
+			\(\operatorname{Gain}(S\), Outlook \()=\operatorname{Entropy}(S)-\sum_{v \in\{\text { Sunny,Overcast,Rain }\}} \frac{\left|S_{v}\right|}{|S|} \operatorname{Entropy}\left(S_{v}\right)\)
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{columns}
+		\column{0.4\textwidth}
+		\includegraphics[width=\textwidth]{imgs/algorithm_9.png}
+		\column{0.6\textwidth}
+		
+		\begin{enumerate}
+			\item 	\(\operatorname{Gain}(S\), Outlook \()= \operatorname{Entropy}(S)-\frac{5}{14} \operatorname{Entropy}\left(S_{\text {Sunny }}\right)-\frac{4}{14} \operatorname{Entropy}\left(S_{\text {overcast }}\right)-\frac{5}{14} \operatorname{Entropy}\left(S_{\text {Rain }}\right)\)
+			\item 	\(\operatorname{Gain}(S\), Outlook \()=0.94-\frac{5}{14} 0.971-\frac{4}{14} 0-\frac{5}{14} 0.971=0.2464\)
+		\end{enumerate}
+		\end{columns}
+	\end{frame}
+	\begin{frame}
+		\begin{columns}
+			\column{0.4\textwidth}
+			\includegraphics[width=\textwidth]{imgs/algorithm_9.png}
+			\column{0.6\textwidth}
+			$$
+			\begin{array}{l}\textcolor{red}{\operatorname{Gain}(S, \text { Outlook })=0.2464} \\ \operatorname{Gain}(S, \text { Temp })=0.0289 \\ \operatorname{Gain}(S, \text { Humidity })=0.1516 \\ \operatorname{Gain}(S, \text { Wind })=0.0478\end{array}
+			$$
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{tikzpicture}[
+			every node/.style={font=\small},
+			decision/.style={diamond, draw, fill=blue!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt},
+			root/.style={rectangle, draw, fill=blue!20, text width=5em, text centered, rounded corners, minimum height=2em},
+			outcome/.style={rectangle, draw, fill=green!20, text width=5em, text centered, rounded corners, minimum height=2em},
+			level distance=2cm, grow=down, sibling distance=3.5cm, 
+			edge from parent/.style={draw, -latex},scale=0.6]
+			
+			\node[root] (outlook) {Outlook \\ {[9+,5-]}}
+			child {
+				node[outcome, label=above left:{$\{D1,D2,D8,D9,D11\}$}, label=left: {[2+,3-]}] {?} 
+				edge from parent node[above left, align=right] {Sunny}
+			}
+			child {
+				node[outcome, label=below:{$\{D3,D7,D12,D13\}$}] {Yes \\ {[4+,0-]}} 
+				edge from parent node[right, align=left] {Overcast}
+			}
+			child {
+				node[outcome, label=above right:{$\{D4,D5,D6,D10,D14\}$}, label=right: {[3+,2-]}] {?} 
+				edge from parent node[above right, align=left] {Rain}
+			};
+		\end{tikzpicture}
+		\end{frame}
+		
+	\begin{frame}
+		\begin{columns}[T]
+			\column{0.4\textwidth}
+			\includegraphics[width=\textwidth]{imgs/algorithm_10.png}
+			\column{0.6\textwidth}
+			Do you know how to calculate?
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{tikzpicture}[
+			every node/.style={font=\small},
+			decision/.style={diamond, draw, fill=blue!20, text width=4.5em, text badly centered, node distance=2.5cm, inner sep=0pt},
+			root/.style={rectangle, draw, fill=blue!20, text width=5em, text centered, rounded corners, minimum height=2em},
+			outcome/.style={rectangle, draw, fill=green!20, text width=5em, text centered, rounded corners, minimum height=2em},
+			level 1/.style={sibling distance=6cm, level distance=1.5cm},
+			level 2/.style={sibling distance=3cm, level distance=1.5cm},
+			edge from parent/.style={draw, -latex},scale=0.65]
+			
+			\node[root] (outlook) {Outlook \\ {[9+,5-]}}
+			child {
+				node[root] (humidity) {Humidity} 
+				child {
+					node[outcome, label=below:{$\{D1,D2,D8\}$}] {No}
+					edge from parent node[left] {High}
+				}
+				child {
+					node[outcome, label=below:{$\{D9,D11\}$}] {Yes}
+					edge from parent node[right] {Normal}
+				}
+				edge from parent node[left, align=center] {Sunny}
+			}
+			child {
+				node[outcome, label=below:{$\{D3,D7,D12,D13\}$}] {Yes \\ {[4+,0-]}} 
+				edge from parent node[left, align=center] {Overcast}
+			}
+			child {
+				node[outcome, label=below:{$\{D4,D5,D6,D10,D14\}$}] {?} 
+				edge from parent node[right, align=center] {Rain}
+			};
+			
+			% Labels
+			\node[above of=outlook, node distance=1cm] {${D1, D2, \ldots, D14}$};
+			
+		\end{tikzpicture}
+	\end{frame}
+	
 	\subsubsection{C4.5}
 	\begin{frame}{C4.5}
 		The most widely used formulation of a decision tree learning algorithm is called \textbf{C4.5}. It has several additional features as compared to ID3:
@@ -330,6 +456,9 @@
 		\end{itemize}
 	\end{frame}
 	
+	\begin{frame}
+	 Decision Tree is a topic worth its own week, as we will talk more on this topic in later sessions. 
+	\end{frame}
 	\begin{frame}
 		\begin{center}
 			\Huge Questions?
