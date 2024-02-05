@@ -16,6 +16,10 @@
 \pgfplotsset{compat=newest}
 
 \setlength{\parskip}{0.5em}
+
+\usepackage{setspace}
+\setstretch{1.25}  
+
 \usetheme{Berkeley}
 \setbeamertemplate{navigation symbols}{}
 
@@ -242,10 +246,10 @@ Simplification: \(\theta_{0}=0\); this simplification merely makes the decision 
 \vspace{0.3cm}
 \begin{columns}
 	\column{0.5\textwidth}
-	\textbf{Hypothesis 1: Bad Decision Boundary}
+	\textbf{Bad Decision Boundary}
 	\includegraphics[width = \textwidth]{imgs/svm_8.png}
 	\column{0.5\textwidth}
-	\textbf{Hypothesis 2: Good Decision Boundary}
+	\textbf{Good Decision Boundary}
 	\includegraphics[width = \textwidth]{imgs/svm_8.png}
 \end{columns}
 \end{frame}
@@ -289,7 +293,7 @@ Simplification: \(\theta_{0}=0\); this simplification merely makes the decision 
 \end{frame}
 
 \begin{frame}{Kernel}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.4\textwidth}
 				\begin{tikzpicture}[scale=0.7] % Adjust the scale to make the plot smaller
 			\begin{axis}[
@@ -307,6 +311,15 @@ Simplification: \(\theta_{0}=0\); this simplification merely makes the decision 
 			\end{axis}
 		\end{tikzpicture}
 		\column{0.6\textwidth}
+		Given \(x\), compute new feature depending on proximity to landmarks \(l^{(1)}, l^{(2)}, l^{(3)}\); 
+		
+		\textcolor{red}{Given \(x\)}:
+		\begin{itemize}
+			\item  \(f_1 = \text{similarity}(x,l^{(1)})\) = \(\text{exp}(-\frac{\left\|x-l^{(1)}\right\|^{2}}{2\sigma^{2}})\)
+			\item \(f_2 = \text{similarity}(x,l^{(2)})\) = \(\text{exp}(-\frac{\left\|x-l^{(2)}\right\|^{2}}{2\sigma^{2}})\)
+			\item  \(f_3 = \text{similarity}(x,l^{(3)})\) = \(\text{exp}(...)\)
+		\end{itemize}
+		
 	\end{columns}
 \end{frame}
 
