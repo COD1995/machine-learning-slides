@@ -323,6 +323,304 @@ Simplification: \(\theta_{0}=0\); this simplification merely makes the decision 
 	\end{columns}
 \end{frame}
 
+\begin{frame}{Kernel and Similarity}
+	$$
+	f_{1}=\operatorname{similarity}\left(x, l^{(1)}\right)=\exp \left(-\frac{\left\|x-l^{(1)}\right\|^{2}}{2 \sigma^{2}}\right)= \exp \left(-\frac{\sum_{j=1}^{n}\left(x_{j}-l_{j}^{(1)}\right)^{2}}{2 \sigma^{2}}\right)
+	$$
+	\begin{itemize}
+		\item if \(x \approx l^{(1)}\): \(f_{1} \approx \exp \left(-\frac{0^{2}}{2 \sigma^{2}}\right)\approx 1\)
+		\item If \(x\) if far from \(l^{(1)}\): \(f_{1}=\exp \left(-\frac{(\text { large number })^{2}}{2\sigma^{2}}\right) \approx 0\)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example and Affects of \(\sigma\)}
+	$$
+	l^{(1)}=\left[\begin{array}{l}3 \\ 5\end{array}\right], \quad f_{1}=\exp \left(-\frac{\left\|x-l^{(1)}\right\|^{2}}{2 \sigma^{2}}\right)
+	$$
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+		$$\sigma^{2}=1$$
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{imgs/svm_10.png}
+		\end{figure}
+		When \(x=\left[\begin{array}{l}3 \\ 5\end{array}\right]\), you will get \(f_{1}=1\); It basically measures how close are you to the landmark.
+		\column{0.5\textwidth}
+		$$\sigma^{2}=0.5$$
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{imgs/svm_11.png}
+		\end{figure}
+		The width of the bump become narrower, and width of contour; The feature \(f_{1}\) falls to zero more rapidly; 
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+		\begin{tikzpicture}[scale=0.5]
+			\begin{axis}[
+				axis lines=middle,
+				xlabel={$x_1$},
+				ylabel={$x_2$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=north},
+				ylabel style={at={(ticklabel* cs:1)},anchor=east},
+				xmin=0, xmax=5,
+				ymin=0, ymax=5,
+				ticks=none
+				]
+				
+				% Add the points
+				\addplot[only marks, mark=*, blue] coordinates {(1,4) (4,3) (3,1)};
+				
+				% Add the labels
+				\node[label={180:{$l^{(1)}$}},circle,fill,inner sep=2pt] at (axis cs:1,4) {};
+				\node[label={180:{$l^{(2)}$}},circle,fill,inner sep=2pt] at (axis cs:4,3) {};
+				\node[label={180:{$l^{(3)}$}},circle,fill,inner sep=2pt] at (axis cs:3,1) {};
+				
+			\end{axis}
+		\end{tikzpicture}
+		\column{0.5\textwidth}
+		Given a training example \(x\); 
+		
+		\textcolor{red}{Hypothesis:} Predict " 1 " when \(\theta_{0}+\theta_{1} f_{1}+\theta_{2} f_{2}+\theta_{3} f_{3} \geq 0\)
+		
+		\textbf{Assume} that we already have our model: \(\theta_{0}=-0.5, \theta_{1}=1, \theta_{2}=1, \theta_{3}=0\)
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+		\begin{tikzpicture}[scale=0.5]
+			\begin{axis}[
+				axis lines=middle,
+				xlabel={$x_1$},
+				ylabel={$x_2$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=north},
+				ylabel style={at={(ticklabel* cs:1)},anchor=east},
+				xmin=0, xmax=5,
+				ymin=0, ymax=5,
+				ticks=none
+				]
+				
+				% Add the points
+				\addplot[only marks, mark=*, blue] coordinates {(1,4) (4,3) (3,1)};
+				\addplot[only marks, mark=*, red] coordinates {(1.2,3.8)};
+				
+				% Add the labels
+				\node[label={180:{$l^{(1)}$}},circle,fill,inner sep=2pt] at (axis cs:1,4) {};
+				\node[label={180:{$l^{(2)}$}},circle,fill,inner sep=2pt] at (axis cs:4,3) {};
+				\node[label={180:{$l^{(3)}$}},circle,fill,inner sep=2pt] at (axis cs:3,1) {};
+				\node[label={270:{$x$}},circle,fill,inner sep=2pt] at (axis cs:1.2,3.8) {};
+				
+			\end{axis}
+		\end{tikzpicture}
+		\column{0.5\textwidth}
+		Given a training example \(x\); 
+		
+		\textcolor{red}{Hypothesis:} Predict " 1 " when \(\theta_{0}+\theta_{1} f_{1}+\theta_{2} f_{2}+\theta_{3} f_{3} \geq 0\)
+		
+		\textbf{Assume} that we already have our model: \(\theta_{0}=-0.5, \theta_{1}=1, \theta_{2}=1, \theta_{3}=0\)
+	\end{columns}
+	
+	\(f_1\approx1, f_2\approx0\) and \(f_3\approx0\);  \(\theta_{0}+\theta_{1}\times 1 + \theta_{2}\times 0 + \theta_{3}\times 0 = -0.5 + 1 = 0.5 \geq 0 \); therefore, we classify this \(x\) as 1. 
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{tikzpicture}[scale=0.5]
+			\begin{axis}[
+				axis lines=middle,
+				xlabel={$x_1$},
+				ylabel={$x_2$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=north},
+				ylabel style={at={(ticklabel* cs:1)},anchor=east},
+				xmin=0, xmax=5,
+				ymin=0, ymax=5,
+				ticks=none
+				]
+				
+				% Add the points
+				\addplot[only marks, mark=*, blue] coordinates {(1,4) (4,3) (3,1)};
+				\addplot[only marks, mark=*, red] coordinates {(4,1)};
+				
+				% Add the labels
+				\node[label={180:{$l^{(1)}$}},circle,fill,inner sep=2pt] at (axis cs:1,4) {};
+				\node[label={180:{$l^{(2)}$}},circle,fill,inner sep=2pt] at (axis cs:4,3) {};
+				\node[label={180:{$l^{(3)}$}},circle,fill,inner sep=2pt] at (axis cs:3,1) {};
+				\node[label={270:{$x$}},circle,fill,inner sep=2pt] at (axis cs:4,1) {};
+				
+			\end{axis}
+		\end{tikzpicture}
+		\column{0.5\textwidth}
+		\(f_{1}, f_{2}, f_{3} \approx 0\); \(\theta_{0}+\theta_{1} f_{1}+\ldots \approx-0.5\)
+		
+		With the definition of \textit{landmarks} and \textit{kernel function} , we can learn pretty complex non-linear decision boundaries. 
+		\begin{enumerate}
+			\item How to decide these landmarks? 
+			\item Other similarity functions?
+		\end{enumerate}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Choosing the Landmarks}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{tikzpicture}[scale=0.5]
+			\begin{axis}[
+				axis lines=middle,
+				xlabel={$x_1$},
+				ylabel={$x_2$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=north},
+				ylabel style={at={(ticklabel* cs:1)},anchor=east},
+				xmin=0, xmax=5,
+				ymin=0, ymax=5,
+				ticks=none
+				]
+				
+				% Add the points
+				\addplot[only marks, mark=*, blue] coordinates {(1,4) (4,3) (3,1)};
+				
+				% Add the labels
+				\node[label={180:{$l^{(1)}$}},circle,fill,inner sep=2pt] at (axis cs:1,4) {};
+				\node[label={180:{$l^{(2)}$}},circle,fill,inner sep=2pt] at (axis cs:4,3) {};
+				\node[label={180:{$l^{(3)}$}},circle,fill,inner sep=2pt] at (axis cs:3,1) {};
+				
+			\end{axis}
+		\end{tikzpicture}
+		\column{0.5\textwidth}
+		Given \(x\) :
+		$$
+		\begin{aligned} f_{i} & =\operatorname{similarity}\left(x, l^{(i)}\right) \\ & =\exp \left(-\frac{\left\|x-l^{(i)}\right\|^{2}}{2 \sigma^{2}}\right)\end{aligned}
+		$$
+	\end{columns}
+	Predict \(y=1\) if \(\theta_{0}+\theta_{1} f_{1}+\theta_{2} f_{2}+\theta_{3} f_{3} \geq 0\); 
+	Where to get \(l^{(1)}, l^{(2)}, l^{(3)}, \ldots\) ?
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{center}
+			\begin{tikzpicture}[scale=0.5]
+				\begin{axis}[
+					axis lines=middle,
+					xmin=0, xmax=10,
+					ymin=0, ymax=10,
+					ticks=none,
+					axis equal image, % Keeps the aspect ratio of the axes the same
+					]
+					
+					% Add red crosses
+					\addplot[only marks, mark=x, red, mark size=6pt] coordinates {
+						(3,4) (4,3) (5,5) (6,4) (7,3)
+					};
+					
+					% Add blue circles, with increased size to ensure they enclose the red crosses
+					\addplot[only marks, mark=o, blue, mark size=6pt] coordinates {
+						(3,6) (1,4) (1, 2) (2,1) (7,4) (6, 6) (6,2)
+					};
+					
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+
+		\column{0.5\textwidth}
+		\begin{center}
+			\begin{tikzpicture}[scale=0.5]
+				\begin{axis}[
+					axis lines=middle,
+					xmin=0, xmax=10,
+					ymin=0, ymax=10,
+					ticks=none,
+					axis equal image, % Keeps the aspect ratio of the axes the same
+					]
+					
+					% Add red crosses
+					\addplot[only marks, red, mark size=6pt] coordinates {
+						(3,4) (4,3) (5,5) (6,4) (7,3)
+					};
+					
+					% Add blue circles, with increased size to ensure they enclose the red crosses
+					\addplot[only marks, blue, mark size=6pt] coordinates {
+						(3,6) (1,4) (1, 2) (2,1) (7,4) (6, 6) (6,2)
+					};
+					
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+
+	\end{columns}
+\end{frame}
+
+\begin{frame}{SVM with Kernels}
+	\textcolor{red}{Given} \(\left(x^{(1)}, y^{(1)}\right),\left(x^{(2)}, y^{(2)}\right), \ldots,\left(x^{(m)}, y^{(m)}\right)\), choose \(l^{(1)}=x^{(1)}, l^{(2)}=x^{(2)}, \ldots, l^{(m)}=x^{(m)}\)
+	
+	\textcolor{red}{Given} example \(x\) :
+	$$
+	\begin{array}{l}f_{1}=\operatorname{similarity}\left(x, l^{(1)}\right) \\ f_{2}=\operatorname{similarity}\left(x, l^{(2)}\right) \\ \ldots\end{array} \rightarrow 
+	f=\left[\begin{array}{c}f_{1} \\ f_{2} \\ \vdots \\ f_{m}\end{array}\right]
+	$$
+	\end{frame}
+	
+	\begin{frame}
+		For training example \(\left(x^{(i)}, y^{(i)}\right)\):
+		$$
+		\begin{aligned} f_{1}^{(i)} & =\text{sim} \left(x^{(i)}, l^{(1)}\right) \\ x^{(i)} \rightarrow \quad f_{2}^{(i)} & =\text{sim} \left(x^{(i)}, l^{(2)}\right) \\ \vdots \\ f_{i}^{(i)}& =\text{sim} \left(x^{(i)}, l^{(i)}\right)=\exp \left(-\frac{0}{2\sigma^2}\right)=1 \\ \vdots & \\ f_{m}^{(i)} & =\text{sim} \left(x^{(i)}, l^{(m)}\right)\end{aligned}
+		$$
+\end{frame}
+	
+\begin{frame}
+	\textcolor{red}{Hypothesis:} Given \(x\), compute features \(f \in \mathbb{R}^{m+1}\)
+	
+	Predict " \(\mathrm{y}=1\) " if \(\theta^{T} f \geq 0\)
+	
+	\textcolor{blue}{Training:}
+	$$
+	\min _{\theta} C \sum_{i=1}^{m} y^{(i)} \operatorname{cost}_{1}\left(\theta^{T} f^{(i)}\right)+\left(1-y^{(i)}\right) \operatorname{cost}_{0}\left(\theta^{T} f^{(i)}\right)+\frac{1}{2} \sum_{j=1}^{m} \theta_{j}^{2}
+	$$
+\end{frame}
+
+\begin{frame}{SVM Parameters}
+	$$
+	\begin{aligned} C\left(=\frac{1}{\lambda}\right) .\quad & \text { Large C: Lower bias, high variance. } \\ & \text { Small C: Higher bias, low variance. }\end{aligned}
+	$$
+	\begin{columns}
+		\column{0.5\textwidth}
+\(\sigma^{2} \quad\) 
+
+		Large \(\sigma^{2}:\) Features \(f_{i}\) vary more smoothly. Higher bias, lower variance.
+		
+		Small \(\sigma^{2}:\) Features \(f_{i}\) vary less smoothly. Lower bias, higher variance.
+		\column{0.5\textwidth}
+				\begin{tikzpicture}[scale=0.7] % Adjust the scale to make the plot smaller
+			\begin{axis}[
+				axis lines=middle,
+				axis line style={->},
+				xlabel={$x$},
+				ylabel={$y$},
+				xlabel style={at={(ticklabel* cs:1)},anchor=west},
+				ylabel style={at={(ticklabel* cs:1)},anchor=south},
+				xmin=0, xmax=5, % Only positive x-axis
+				ymin=0, ymax=5, % Only positive y-axis
+				ticks=none,
+				small,
+				]
+			\end{axis}
+		\end{tikzpicture}
+	\end{columns}
+\end{frame}
+\begin{frame}{Must Watch Video}
+	We have talked about support vector machines extensively, but when you go home \textbf{pleaseeeee} watch this 15 minutes video on support vector machines; It is simply amazing!! 
+	
+	\begin{itemize}
+		\item \href{https://www.youtube.com/watch?v=ny1iZ5A8ilA&t=719s}{Support Vector Machines: All you need to know!}
+	\end{itemize}
+\end{frame}
+
+
 \begin{frame}
 	\begin{center}
 		\Huge Questions?
