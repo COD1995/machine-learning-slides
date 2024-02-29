@@ -1,0 +1,106 @@
+\documentclass[8pt,dvipsnames]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{libertinus}
+\usepackage{amsmath}
+\usepackage[most]{tcolorbox}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\usepackage{hyperref}
+%python 
+\usepackage{listings}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{8} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{8}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+		language=Python,
+		basicstyle=\ttm,
+		morekeywords={self},              % Add keywords here
+		keywordstyle=\ttb\color{deepblue},
+		emph={MyClass,__init__},          % Custom highlighting
+		emphstyle=\ttb\color{deepred},    % Custom highlighting style
+		stringstyle=\color{deepgreen},
+		frame=tb,                         % Any extra options here
+		showstringspaces=false
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+	\pythonstyle
+	\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+		\pythonstyle
+		\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+\usepackage{xcolor}  
+\newcommand{\cb}[1]{{\color{CadetBlue}#1}}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\setlength{\parskip}{0.5em}
+
+\usepackage{setspace}
+\setstretch{1.25}  
+\usetheme{Singapore}
+\setbeamertemplate{navigation symbols}{}
+
+
+\title{CSE574 Introduction to Machine Learning}
+\subtitle{Neural Networks 2}
+\author{Jue Guo}
+\institute{University at Buffalo}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Neuron Model: Logistic Unit}
+\begin{frame}{Neuron Model: Logistic Unit}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \begin{tikzpicture}[>=stealth,shorten >=1pt,node distance=2cm,on grid,auto,semithick]
+
+                % Nodes
+                \node[circle,draw,fill=blue!20] (x1) {$x_1$};
+                \node[circle,draw,fill=blue!20] (x2) [below of=x1] {$x_2$};
+                \node[circle,draw,fill=blue!20] (x3) [below of=x2] {$x_3$};
+                \node[circle,draw,fill=orange!90] (h) [right of=x2] {$h_{\theta}(x)$};
+
+                % Edges
+                \draw[->] (x1) -- (h);
+                \draw[->] (x2) -- (h);
+                \draw[->] (x3) -- (h);
+
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+
+        \end{column}
+    \end{columns}
+\end{frame}
+\end{document}

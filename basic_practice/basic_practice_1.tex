@@ -62,7 +62,7 @@
 
 
 \title{CSE574 Introduction to Machine Learning}
-\subtitle{Basic Practice}
+\subtitle{Basic Practice 1}
 \author{Jue Guo}
 \institute{University at Buffalo}
 \date{\today}
@@ -212,7 +212,17 @@
 		\end{itemize}
 		 Then you build a regression model to predict $\hat{y}$ from $\hat{\mathbf{x}}$. Of course, to build training examples ( $\hat{\mathbf{x}}, \hat{y})$, you only use those examples from the original dataset, in which the value of feature $j$ is present.
 		
-		Finally, if you have a significantly large dataset and just a few features with missing values, you can increase the dimensionality of your feature vectors by adding a binary indicator feature for each feature with missing values. Let's say feature $j=12$ in your $D$-dimensional dataset has missing values. For each feature vector $\mathbf{x}$, you then add the feature $j=D+1$ which is equal to 1 if the value of feature 12 is present in $\mathbf{x}$ and 0 otherwise. The missing feature value then can be replaced by 0 or any number of your choice.
+		Finally, if you have a significantly large dataset and just a few features with missing values, you can increase the dimensionality of your feature vectors by adding a binary indicator feature for each feature with missing values. 
+		\begin{itemize}
+			\item Let's say feature $j=12$ in your $D$-dimensional dataset has missing values. For each feature vector $\mathbf{x}$, you then add the feature $j=D+1$ which is equal to 1 if the value of feature 12 is present in $\mathbf{x}$ and 0 otherwise. The missing feature value then can be replaced by 0 or any number of your choice.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{itemize}
+			\item At prediction time, if your example is not complete, you should use the same data imputation technique to fill the missing features as the technique you used to complete the training data.
+			\item Before you start working on the learning problem, you cannot tell which data imputation technique will work the best. Try several techniques, build several models and select the one that works the best.
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}
