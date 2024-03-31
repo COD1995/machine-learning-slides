@@ -86,7 +86,6 @@
 		\item Explain how to choose an appropriate value of \(k\).
 		\item Use a decision boundary plot to explore different values of \(k\).
 		\item Define Euclidean distance, Minkowski distance, and Manhattan distance.
-		\item Implement k-nearest neighbors using scikit-learn.
 	\end{itemize}
 	We will do a signup sheet to track attendance at the end of class today.
 \end{frame}
@@ -469,12 +468,59 @@
 	Distance-based algorithms like k-nearest neighbors are sensitive to the unit and magnitude of measurement for each feature.
 	\begin{itemize}
 		\item Ex: The distance value between the body mass of two penguins depends on whether body mass is measured in grams or kilograms.
-		\item Input features in distance-based algorithms should be standardized before fitting a model. Standardized features are scaled to have a mean of 0 and a standard deviation of 1. A feature is standardized by subtracting the mean, \(\bar{x}\), and dividing by the standard deviation, \(s\).
+		\item Input features in distance-based algorithms should be standardized before fitting a model. \textbf{Standardized features} are scaled to have a mean of 0 and a standard deviation of 1. A feature is standardized by subtracting the mean, \(\bar{x}\), and dividing by the standard deviation, \(s\).
 		      $$
 			      z=\frac{x-\bar{x}}{s}
 		      $$
 		      Standardized values are also referred to as z-scores.
 	\end{itemize}
-
 \end{frame}
+
+\begin{frame}
+	\frametitle{Standardized vs. unstandardized inputs in k-nearest neighbors.}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\linewidth]{imgs/knn_38.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Standardized vs. unstandardized inputs in k-nearest neighbors.}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\linewidth]{imgs/knn_39.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Standardized vs. unstandardized inputs in k-nearest neighbors.}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\linewidth]{imgs/knn_40.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Standardized vs. unstandardized inputs in k-nearest neighbors.}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\linewidth]{imgs/knn_41.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Standardized vs. unstandardized inputs in k-nearest neighbors.}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\linewidth]{imgs/knn_42.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Standardized vs. unstandardized inputs in k-nearest neighbors.}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\linewidth]{imgs/knn_43.png}
+	\end{figure}
+\end{frame}
+
 \end{document}
